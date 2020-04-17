@@ -72,7 +72,8 @@
     "sequelize-transparent-cache": "^2.2.3",
     "sequelize-transparent-cache-ioredis": "^2.2.3",
     "slate": "^0.57.1",
-    "styled-components": "^5.0.1"
+    "styled-components": "^5.0.1",
+    "typed.js": "^2.0.11"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",

@@ -1549,7 +1549,6 @@ div#customSpotifyLeft {
 }
 
 div#mainOpeningContentWrap {
-  margin: 10vh 0 0;
   display: -webkit-box;
   display: flex;
 }
@@ -1584,7 +1583,7 @@ a#LinkedinLinkWrap {
 .coloured-container {
   background: #19034e;
   padding-bottom: 250px;
-  margin-top: 100px;
+  margin-top: 40px;
 }
 
 .coloured-float-container {
@@ -1934,5 +1933,44 @@ pre {
 }
 
 .header-left-wrap a {
+  text-decoration: none;
+  color: #a3a7ae;
+}
+
+.scroll-icon-wrapper {
+  height: 100%;
+}
+
+#blogLoadMoreButton {
+  display: none;
+}
+
+div#customSpotifyRightElementSongWrapper {
+  text-align: center;
+}
+
+.coloured-container {
+  text-align: center;
   color: #fff;
+}
+
+#BlogPostOpenerWrapper h2 {
+  color: #fff;
+}
+
+div#BlogandMoreAboutSeconndWrapper {
+  color: #fff;
+  text-align: center;
+}
+
+div#ExtraContentContainer {
+  text-align: center;
+}
+
+div#SkillsContentContainer {
+  text-align: center;
+}
+
+.white-text {
+    color: #fff;
 }
