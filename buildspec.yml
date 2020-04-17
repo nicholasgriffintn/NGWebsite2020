@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+  pre_build: # commands to be run before build
+    commands:
+      - echo Logging in to Amazon ECR....
+      - aws --version
+      # login to Elastic container registry
+      - eval $(aws ecr get-login --region eu-west-1 --no-include-email | sed 's|https://||')
+      - REPOSITORY_URI=<REPO_URL_HERE>
+      - IMAGE_TAG=$(date +%Y-%m-%d-%H-%M-%S)
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building node service
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker image ls -a
+      - docker push $REPOSITORY_URI:$IMAGE_TAG

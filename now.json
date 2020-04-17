@@ -1,0 +1,9 @@
+{
+  "__comment__": "Not using this yet, just an idea",
+  "version": 2,
+  "env": {
+    "APP_URL": "",
+    "DATABASE_URL": ""
+  },
+  "regions": ["arn1"]
+}

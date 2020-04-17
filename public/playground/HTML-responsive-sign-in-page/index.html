@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!-- Designed and Developed by Nicholas Griffin - https://nicholasgriffin.co.uk -->
+<!-- Please read license.md for more information about allowed use -->
+<html lang="en-GB">
+<head>
+
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="author" content="Nicholas Griffin">
+    <title>A HTML Sign-In/ Register Page - Designed by Nicholas Griffin</title>
+
+    <link href='https://nicholasgriffin.co.uk/playground/HTML-responsive-sign-in-page//app.css' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+
+    <div class="signin-page-wrapper">
+        <div class="header">
+            <div class="background-content">
+                        <div class="background">
+                            <div class="background-image" style="background-image: url(https://nicholasgriffin.co.uk/playground/html-landing-page-single-option/stock_images/img1.jpg)">
+                            </div>
+                        </div>
+            </div>
+            <div class="logo" style="background-image: url(https://nicholasgriffin.co.uk/playground/html-landing-page-single-option/logo.png);">
+            </div>
+            <div class="menu">
+                <div class="menu-button">
+                    <a href="/">
+                        GO BACK HOME
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="sign-in-registration-container">
+                    <nav>
+                            <ul class="sign-in-registration-tabs">
+                              <li><a class="active" href="#tab1">Sign In</a></li>
+                              <li><a href="#tab2">Register</a></li>  
+                            </ul>
+                          </nav>
+                          
+                          <header>
+                        
+                            <section id="tab1">
+                                    <div class="sign-in-form tab-content" id="signin">
+                                            <form action="" method="post" >
+                                                    <div class="group">
+                                                            <label>Username</label>
+                                                    <input type="text" class="used" name="username" ><span class="highlight"></span><span class="bar"></span>
+                                                    </div>
+                                                    <div class="group">
+                                                            <label>Password</label>
+                                                    <input type="password" name="password" ><span class="highlight"></span><span class="bar"></span>
+                                                    
+                                                    </div>
+                                                    <input type="hidden" name="login" value="yes" >
+                                                    <button type="submit" class="buttonui "> <span> Login </span>
+                                                    </button></form>
+                                    </div>
+                            </section>
+                          
+                            <section id="tab2">
+                                    <div class="registration-form tab-content" id="register">
+                                            <form action="" method="post" >
+                                                    <div class="group">
+                                                            <label>Full name</label>
+                                                    <input type="text" name="full_name" ><span class="highlight"></span><span class="bar"></span>
+                                                    
+                                                    </div>
+                                                    <div class="group">
+                                                            <label>Email</label>
+                                                    <input type="email" name="email" ><span class="highlight"></span><span class="bar"></span>
+                                                    
+                                                    </div>
+                                                    <div class="group">
+                                                            <label>Username</label>
+                                                    <input type="text" name="username" ><span class="highlight"></span><span class="bar"></span>
+                                                    
+                                                    </div>
+                                                    <div class="group">
+                                                            <label>Password</label>
+                                                    <input type="text" name="password" ><span class="highlight"></span><span class="bar"></span>
+                                                    
+                                                    </div>
+                                                    <input type="hidden" name="register" value="yes" > 
+                                                    <button type="submit" class="buttonui "> <span> Register </span>
+                                                    </button>  </form>
+                                    </div>
+                            </section>
+
+                            <div class="forgot-pw">
+                                    <a href='#' class="forgot-pw-link">Having Trouble Signing In?</a>
+                                </div>
+                          
+                          </header>
+               
+            </div>
+        </div>
+    </div>
+
+<footer>
+
+    <div class="ng-attribution">
+        This Website was created by <a href="https://nicholasgriffin.co.uk">Nicholas Griffin</a>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+//First we make sure to only show the first section
+$('header').children('section').hide();
+$('header').children('section').first().show();
+
+//When we click a link do this..
+$('nav ul li a').click(function(){
+  
+    //Makes sure the active tab gets a different color
+    $('nav ul li a').removeClass('active');
+    $(this).addClass('active');
+  
+    //we pull out the href E.g #tab2
+    var href = $(this).attr('href');
+  
+    //We slide up all sections and only reveal the one we clicked E.g #tab2
+    $('header').children('section').slideUp(200);
+    $(href).delay(200).slideDown(200);
+  
+});
+
+</script>
+
+</footer>
+
+</body>

@@ -1,0 +1,9 @@
+---
+title: My weekend with AWS DeepRacer
+published: true
+description: Here's the results of my weekend playing around with AWS DeepRacer
+tags: javascript,AWS, AWS DeepRacer, Machine Learning
+thumbnail: https://cdn.nicholasgriffin.dev/images/Screenshot+2019-05-19+at+12.19.03.png
+header: https://cdn.nicholasgriffin.dev/images/Screenshot+2019-05-19+at+12.19.03.png
+ctime: 2019-05-19
+---
