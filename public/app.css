@@ -1972,5 +1972,31 @@ div#SkillsContentContainer {
 }
 
 .white-text {
-    color: #fff;
+  color: #fff;
+}
+
+span#MusicOpeningWrapperTitle {
+  text-align: center;
+}
+
+#customSpotifyRightElementSongOverlayContent h3 {
+  color: #fff;
+}
+
+#customSpotifyLeftElementSongWrapper h3 {
+  color: #fff;
+}
+
+#customSpotifyLeftElementSongWrapper img {
+  max-width: 50px;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+div#OpeningContentWrapper {
+  margin-top: 30px;
+}
+
+div#BlogContentContainer {
+  min-height: 160px;
 }

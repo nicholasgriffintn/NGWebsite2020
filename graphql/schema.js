@@ -7,6 +7,12 @@ const typeDefs = gql`
     id: ID
     title: String
     content: String
+    description: String
+    tags: String
+    thumbnail: String
+    header: String
+    createdAt: String
+    updatedAt: String
   }
 
   type Query {

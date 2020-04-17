@@ -3,6 +3,7 @@ import React from "react";
 import Typed from "typed.js";
 
 import Page from "../components/Page";
+import ArticleList from "../components/ArticleList";
 
 import HomepageJS from "../components/HomepageJS";
 
@@ -202,7 +203,7 @@ function IndexPage({ query, asPath }) {
             >
               <div id="spotify-widget" className="ui stackable grid"></div>
               <span id="MusicOpeningWrapperTitle">
-                What I'm listening to
+                What I'm listening to{" "}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 407.437 407.437"
@@ -234,14 +235,9 @@ function IndexPage({ query, asPath }) {
             className="conntainer-fluid coloured-float-container"
           >
             <div className="ui container">
-              <h2
-                id="single-title"
-                className="white-text animated bounceInDown"
-              >
-                No blog anymore...
-              </h2>
-              <h2 className="white-text">Sorry, I broke it.</h2>
-              <p>Maybe later?</p>
+              <div id="BlogContentContainer" class="ui three stackable cards">
+                <ArticleList />
+              </div>
               <button
                 id="blogLoadMoreButton"
                 className="ui button fluid"

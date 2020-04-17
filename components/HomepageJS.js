@@ -562,7 +562,7 @@ function HomepageJS() {
               trackUrl +
               '"></a>' +
               '<div class="four wide  column">' +
-              '<img class="lazy" data-src="' +
+              '<img class="lazy" loading="lazy" src="' +
               trackImageSmall +
               '">' +
               "</div>" +
