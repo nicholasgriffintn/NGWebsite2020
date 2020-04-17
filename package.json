@@ -49,6 +49,7 @@
     "glob": "^7.1.6",
     "graphql": "^14.6.0",
     "graphql-tag": "2.10.3",
+    "he": "^1.2.0",
     "helmet": "^3.22.0",
     "ioredis": "^4.16.1",
     "isomorphic-fetch": "^2.2.1",

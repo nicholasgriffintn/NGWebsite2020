@@ -632,7 +632,7 @@ function HomepageJS() {
     initJSRequests();
   }, []);
 
-  return <React.Fragment />;
+  return <div id="HomepageJS"></div>;
 }
 
 export default HomepageJS;

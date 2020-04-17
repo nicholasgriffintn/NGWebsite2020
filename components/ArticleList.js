@@ -14,11 +14,11 @@ const ArticleList = (query) => {
   const [errorState, setError] = useState(false);
   const [initialLoad, setInitialLoad] = useState(true);
 
-  const triggerBlogPostLoad = async () => {
+  useEffect(async () => {
     try {
       setLoading(true);
 
-      fetch("/api/graphql", {
+      await fetch("/api/graphql", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,10 +51,6 @@ const ArticleList = (query) => {
       console.error("error while loading blog posts.");
       console.error(e);
     }
-  };
-
-  useEffect(() => {
-    triggerBlogPostLoad();
   }, []);
 
   return (
@@ -62,10 +58,9 @@ const ArticleList = (query) => {
       {console.log(dataState)}
       {dataState &&
         dataState.allArticles &&
-        dataState.allArticles.map((article) => {
-          console.log(article);
-          <ArticleListItem key={article.id} job={article} />;
-        })}
+        dataState.allArticles.map((article) => (
+          <ArticleListItem key={article.id} article={article} />
+        ))}
     </React.Fragment>
   );
 };

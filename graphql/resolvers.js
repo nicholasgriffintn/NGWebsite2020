@@ -10,7 +10,7 @@ const resolvers = {
       console.log(args);
 
       let where = {};
-      let limit = 200;
+      let limit = 6;
       let offset = 0;
 
       if (args.limit) {
@@ -42,7 +42,7 @@ const resolvers = {
       }
 
       // Transform the sort
-      let sortArg = args.sort || "createdAt asc";
+      let sortArg = args.sort || "createdAt desc";
       sortArg = sortArg.split(" ");
       var sortArgArray = new Array();
       for (var i = 0; i < sortArg.length; i++) {
@@ -54,7 +54,7 @@ const resolvers = {
 
       return models.article.findAll({
         where,
-        limit: limit ? Number(limit) : 15,
+        limit: limit ? Number(limit) : 6,
         order: [[sortArgArray[0], sortArgArray[2]]],
       });
     },

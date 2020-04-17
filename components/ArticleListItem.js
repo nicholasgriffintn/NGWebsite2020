@@ -1,34 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import dayjs from "dayjs";
 
-const ArticleListItem = ({ job, index, inProgress = false }) => {
-  if (loadingState) return <div>Loading...</div>;
-  if (errorState) return `Error! ${errorState.message}`;
-
+const ArticleListItem = ({ article, index, inProgress = false }) => {
   return (
-    <article class="ui card">
-      <div class="image">
+    <article
+      className={inProgress === article.id ? "inProgress ui card" : "ui card"}
+    >
+      <div className="image">
         <img
           loading="lazy"
-          src={article.tumbnail}
+          src={article.thumbnail}
           alt={article.title}
-          class="lazy loaded"
+          className="lazy loaded"
         />
       </div>{" "}
-      <div class="content">
-        <a href={"/post-single/" + article.id} class="header">
+      <div className="content">
+        <a href={"/post-single/" + article.id} className="header">
           {article.title}
         </a>{" "}
-        <div class="meta">
-          <span class="date">{dayjs(article.createdAt).format()}</span>
+        <div className="meta">
+          <span className="date">{dayjs(article.createdAt).format()}</span>
         </div>{" "}
-        <div class="description">{article.description}</div>
+        <div className="description">{article.description}</div>
       </div>{" "}
-      <div class="extra content">
+      <div className="extra content">
         <a
           href={"/post-single/" + article.id}
-          class="ui button primary basic inverted"
+          className="ui button primary basic inverted"
         >
           Read more
         </a>

@@ -235,8 +235,11 @@ function IndexPage({ query, asPath }) {
             className="conntainer-fluid coloured-float-container"
           >
             <div className="ui container">
-              <div id="BlogContentContainer" class="ui three stackable cards">
-                <ArticleList />
+              <div
+                id="BlogContentContainer"
+                className="ui three stackable cards"
+              >
+                <ArticleList query={query} />
               </div>
               <button
                 id="blogLoadMoreButton"

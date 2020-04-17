@@ -2000,3 +2000,45 @@ div#OpeningContentWrapper {
 div#BlogContentContainer {
   min-height: 160px;
 }
+
+.single-page .App-header {
+  height: auto !important;
+  padding-top: 0 !important;
+  position: relative;
+}
+.single-page .App-content {
+  top: 0 !important;
+  padding: 1rem;
+  text-align: left;
+  min-height: 150px;
+  width: calc(100% - 2rem);
+}
+img.post-image {
+  width: 100%;
+  height: auto;
+}
+.post-content-wrap {
+  max-width: 780px;
+  width: calc(100% - 2rem);
+  margin: auto;
+  padding: 1rem;
+}
+.post-buttons-wrapper .button {
+  background: #fff;
+  font-size: 0.7rem;
+  opacity: 1;
+  border-radius: 0;
+  padding: 0;
+  cursor: pointer;
+  color: #000;
+  margin: 0;
+  line-height: 0.7rem;
+}
+.post-buttons-wrapper {
+  margin-top: 0.5rem;
+}
+@media (max-width: 780px) {
+  .post-header-titles {
+    margin-top: 0 !important;
+  }
+}

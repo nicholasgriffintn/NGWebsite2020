@@ -186,9 +186,9 @@ if (typeof Object.create !== "function") {
 
       /*jshint multistr: true */
       var $YTPlayerString = $('<div id="ytplayer-container' + self.ID + '" >\
-                                    <div id="' + self.holderID + '" class="ytplayer-player-inline"></div> \
+                                    <div id="' + self.holderID + '" className="ytplayer-player-inline"></div> \
                                     </div> \
-                                    <div id="ytplayer-shield" class="ytplayer-shield"></div>');
+                                    <div id="ytplayer-shield" className="ytplayer-shield"></div>');
 
       self.$node.append($YTPlayerString);
       self.$YTPlayerString = $YTPlayerString;
@@ -202,10 +202,10 @@ if (typeof Object.create !== "function") {
     createBackgroundVideo: function createBackgroundVideo() {
       /*jshint multistr: true */
       var self = this,
-        $YTPlayerString = $('<div id="ytplayer-container' + self.ID + '" class="ytplayer-container background">\
-                                    <div id="' + self.holderID + '" class="ytplayer-player"></div>\
+        $YTPlayerString = $('<div id="ytplayer-container' + self.ID + '" className="ytplayer-container background">\
+                                    <div id="' + self.holderID + '" className="ytplayer-player"></div>\
                                     </div>\
-                                    <div id="ytplayer-shield" class="ytplayer-shield"></div>');
+                                    <div id="ytplayer-shield" className="ytplayer-shield"></div>');
 
       self.$node.append($YTPlayerString);
       self.$YTPlayerString = $YTPlayerString;
