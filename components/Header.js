@@ -5,7 +5,9 @@ import HeaderNav from "./HeaderNav";
 
 const AppIcon = () => (
   <Link href="/">
-    <span>Nicholas Griffin</span>
+    <a href="/">
+      <span>Nicholas Griffin</span>
+    </a>
   </Link>
 );
 
@@ -14,7 +16,9 @@ const Header = ({ children }) => {
     <header className={"main-header container-fluid header"} id="header">
       <div className="container-main">
         <div className="header-left-wrap">
-          <AppIcon />
+          <div className="site-title-header">
+            <AppIcon />
+          </div>
         </div>
         <div className="header-right-wrap">
           <HeaderNav />

@@ -2,6 +2,10 @@
 
 It's time for an upgrade.
 
+Zeit Now link (because I could): https://now.nicholasgriffin.dev/
+
+Prod link: https://nicholasgriffin.dev
+
 # CHANGELOG
 
 ## 0.0.1
