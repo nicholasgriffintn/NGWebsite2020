@@ -2084,6 +2084,7 @@ a.btn.btn-primary-inverted:hover {
   max-width: 680px;
   border-radius: 4px;
   padding: 10px;
+  border: 1px solid #ccc;
 }
 
 .form-control input[type="submit"] {
@@ -2121,4 +2122,31 @@ h1#single-subtitle {
   width: 100%;
   display: inline-block;
   margin-bottom: 10px;
+}
+
+.post-editor.markdown-editor .preview {
+  padding-left: 15px;
+  padding-right: 15px;
+  max-height: 640px;
+  overflow-y: auto;
+}
+
+.form-control textarea {
+  width: 100%;
+  max-width: 680px;
+  border-radius: 4px;
+}
+
+.post-editor.markdown-editor textarea,
+.post-editor.markdown-editor .preview {
+  width: 50%;
+  display: inline-block;
+  float: left;
+}
+
+@media (max-width: 780px) {
+  .post-editor.markdown-editor textarea,
+  .post-editor.markdown-editor .preview {
+    width: 100%;
+  }
 }

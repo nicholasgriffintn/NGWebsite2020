@@ -5,8 +5,7 @@ import { config } from "../../config/config";
 
 import dayjs from "dayjs";
 
-import renderHTML from "react-render-html";
-const he = require("he");
+const ReactMarkdown = require("react-markdown");
 
 const JobPage = (props) => {
   return (
@@ -48,7 +47,13 @@ const JobPage = (props) => {
                   </div>
                 </div>
                 <div className="post-content-wrap">
-                  <div>{renderHTML(he.decode(props.data.article.content))}</div>
+                  <div>
+                    <ReactMarkdown
+                      escapeHtml={false}
+                      linkTarget={"_blank"}
+                      source={props.data.article.content}
+                    />
+                  </div>
                 </div>
               </div>
 
