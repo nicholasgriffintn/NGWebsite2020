@@ -4,10 +4,15 @@ import PageHead from "../components/PageHead";
 import Header from "../components/Header";
 import ActualFooter from "../components/ActualFooter";
 
-function Page({ title, description, displayHeader, path, children }) {
+function Page({ title, description, loadDrac, displayHeader, path, children }) {
   return (
     <Fragment>
-      <PageHead title={title} description={description} path={path} />
+      <PageHead
+        loadDrac={loadDrac}
+        title={title}
+        description={description}
+        path={path}
+      />
 
       <main>
         {displayHeader && <Header />}

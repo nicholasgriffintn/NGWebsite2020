@@ -1,23 +1,77 @@
-import React from "react";
-import Link from "next/link";
+import React, { useState, useEffect } from "react";
 
-export default ({}) => (
-  <footer>
-    <div className="footer-wrap">
-      <div className="container-main">
-        <p>This is my footer. That's all I have for this...</p>
+function Footer() {
+  useEffect(() => {
+    window.Promise ||
+      document.write('<script src="js/es6-promise.min.js" ></script>');
+    window.fetch || document.write('<script src="js/fetch.min.js"></script>');
+
+    // Create cookie function
+    function createCookie(name, value, days) {
+      var expires;
+      if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+        expires = "; expires=" + date.toGMTString();
+      } else {
+        expires = "";
+      }
+      document.cookie = name + "=" + value + expires + "; path=/";
+    }
+
+    // Reading cookies function
+    function readCookie(name) {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split(";");
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === " ") {
+          c = c.substring(1, c.length);
+        }
+        if (c.indexOf(nameEQ) === 0) {
+          return c.substring(nameEQ.length, c.length);
+        }
+      }
+      return null;
+    }
+
+    var cookieMessage = document.querySelector(".js-cookie-message");
+
+    var hasCookie = readCookie("visited");
+
+    if (!hasCookie) {
+      cookieMessage.removeAttribute("hidden");
+    }
+
+    cookieMessage.addEventListener("click", (el) => {
+      if (el.target.nodeName === "BUTTON") {
+        console.log("hiding cookie message now");
+        cookieMessage.setAttribute("hidden", true);
+        createCookie("visited", true, 365);
+      }
+    });
+  });
+
+  return (
+    <footer>
+      <div className="footer-wrap">
+        <div className="container-main">
+          <p>This is my footer. That's all I have for this...</p>
+        </div>
       </div>
-    </div>
-    <div className="cookies js-cookie-message" hidden>
-      <div className="cookies__box">
-        <p>
-          <strong>Another 🍪 notification.</strong>
-          Sorry to bug you, I know these are annoying, just letting you know
-          that I am using cookies on this site to track analytics, annoymously
-          of course.
-        </p>
-        <button className="button button--primary">That's fine</button>
+      <div className="cookies js-cookie-message" hidden>
+        <div className="cookies__box">
+          <p>
+            <strong>Another 🍪 notification.</strong>
+            Sorry to bug you, I know these are annoying, just letting you know
+            that I am using cookies on this site to track analytics, annoymously
+            of course.
+          </p>
+          <button className="button button--primary">That's fine</button>
+        </div>
       </div>
-    </div>
-  </footer>
-);
+    </footer>
+  );
+}
+
+export default Footer;

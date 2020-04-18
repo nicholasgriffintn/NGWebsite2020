@@ -5,6 +5,7 @@ import { config } from "../config/config";
 
 const PageHead = ({
   title,
+  loadDrac,
   description = config.appDescription,
   jobData = {},
   path = "/",
@@ -175,6 +176,8 @@ const PageHead = ({
 
       <link rel="stylesheet" href="/base.css" />
       <link rel="stylesheet" href="/app.css" />
+
+      {loadDrac && <link rel="stylesheet" href="/css/dracula.min.css" />}
     </Head>
   );
 };
