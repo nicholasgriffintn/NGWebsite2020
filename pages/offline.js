@@ -4,8 +4,8 @@ import React from "react";
 import Page from "../components/Page";
 
 const OfflinePage = () => (
-  <Page displayHeader={true} title="This is a shite page">
-    <div className="content-wrap">
+  <Page displayHeader={true} title="Offline">
+    <div className="content-wrap landing-content-wrap">
       <div className="container-main">
         <div className="page-header-spacer"></div>
 

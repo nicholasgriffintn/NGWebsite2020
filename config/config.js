@@ -27,6 +27,11 @@ const completeConfig = {
       port: process.env.REDIS_PORT || "6379",
     },
 
+    AUTH: {
+      UserPoolId: process.env.USER_POOL_ID || "eu-west-2_Pv8aYwUfA",
+      ClientId: process.env.USER_POOL_CLIENT_ID || "2nqiksvvpvea3v3im9kl9ce2e5",
+    },
+
     DATABASE: {
       username: process.env.DATABASE_USERNAME || "postgres",
       password: process.env.DATABASE_PASSWORD || "postgres",

@@ -166,6 +166,7 @@ h1,
     left: 0;
     background: #f9f9f9;
     height: auto;
+    top: 70px;
   }
 
   .navigation ul.toggledMobile li {
@@ -1284,10 +1285,6 @@ footer#App-footer {
   padding: 20px;
 }
 
-svg path {
-  fill: #0b1042;
-}
-
 .background-colours {
   opacity: 0.5;
 }
@@ -1799,11 +1796,17 @@ body {
 
 .post-header-titles {
   max-width: 780px;
-  margin: -70px auto auto;
+  margin: -90px auto auto;
   background: #fff;
   z-index: 99;
   position: relative;
   padding: 1rem;
+}
+
+@media (max-width: 780px) {
+  .post-header-titles {
+    margin: 0 auto !important;
+  }
 }
 
 .header-single-image-full {
@@ -2041,4 +2044,81 @@ img.post-image {
   .post-header-titles {
     margin-top: 0 !important;
   }
+}
+
+#SkillsContentContainer small {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: inline-block;
+  width: 100%;
+}
+
+.card .meta .date {
+  color: #3a3a3a;
+}
+
+.ui.card > .extra,
+.ui.cards > .card > .extra .btn {
+  display: inline-block;
+}
+
+a.btn.btn-primary-inverted {
+  background: transparent;
+  color: #19034e;
+  border-color: #19034e;
+}
+
+a.btn.btn-primary-inverted:hover {
+  background: #19034e;
+  color: #fff;
+}
+
+.form-control {
+  width: 100%;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.form-control input {
+  width: 100%;
+  max-width: 680px;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.form-control input[type="submit"] {
+  background: #19034e;
+  color: #fff;
+}
+
+.form-control input[type="submit"]:hover {
+  background: #28057d;
+}
+
+pre code {
+  background-color: transparent;
+  color: #fff;
+}
+
+h1#single-subtitle {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.content-wrap.landing-content-wrap {
+  background: #222;
+  color: #fff;
+}
+
+.content-wrap.landing-content-wrap h1#single-title {
+  color: #fff;
+  margin-bottom: 40px;
+  margin-top: 60px;
+}
+
+.content-wrap.landing-content-wrap h1#single-title span.emoji {
+  width: 100%;
+  display: inline-block;
+  margin-bottom: 10px;
 }

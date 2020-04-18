@@ -3,6 +3,8 @@ import Page from "../../components/Page";
 
 import { config } from "../../config/config";
 
+import dayjs from "dayjs";
+
 import renderHTML from "react-render-html";
 const he = require("he");
 
@@ -27,19 +29,22 @@ const JobPage = (props) => {
               />
             </div>
             <div className="container-main">
-              <div className="page-header-spacer"></div>
-
               <div className="ui container">
                 <div className="post-header">
                   <div className="post-header-titles">
                     <h1 id="single-title" className="animated bounceInDown">
                       {props.data.article.title}
                     </h1>
-                    <small>Posted {props.data.article.createdAt}</small>{" "}
+                    <h1 id="single-subtitle" className="animated bounceInDown">
+                      {props.data.article.description}
+                    </h1>
+                    <small>
+                      Posted{" "}
+                      {dayjs(props.data.article.createdAt).format(
+                        "DD-MM-YYYY HH:mm"
+                      )}
+                    </small>
                     <hr></hr>
-                    <div className="post-buttons-wrapper">
-                      <button className="button">Save this page</button>
-                    </div>
                   </div>
                 </div>
                 <div className="post-content-wrap">

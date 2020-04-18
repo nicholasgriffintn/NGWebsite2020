@@ -5,7 +5,7 @@ import Page from "../components/Page";
 
 const ShitePage = () => (
   <Page displayHeader={true} title="This is a shite page">
-    <div className="content-wrap">
+    <div className="content-wrap landing-content-wrap">
       <div className="container-main">
         <div className="page-header-spacer"></div>
 

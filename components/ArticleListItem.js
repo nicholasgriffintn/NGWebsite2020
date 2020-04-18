@@ -20,14 +20,16 @@ const ArticleListItem = ({ article, index, inProgress = false }) => {
           {article.title}
         </a>{" "}
         <div className="meta">
-          <span className="date">{dayjs(article.createdAt).format()}</span>
+          <span className="date">
+            {dayjs(article.createdAt).format("DD-MM-YYYY HH:mm")}
+          </span>
         </div>{" "}
         <div className="description">{article.description}</div>
       </div>{" "}
       <div className="extra content">
         <a
           href={"/post-single/" + article.id}
-          className="ui button primary basic inverted"
+          className="btn btn-primary-inverted"
         >
           Read more
         </a>
