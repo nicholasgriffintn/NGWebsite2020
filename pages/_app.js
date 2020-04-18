@@ -10,6 +10,18 @@ import { ApolloProvider } from "@apollo/react-hooks";
 Router.events.on("routeChangeComplete", path => googlePageview(path)); */
 
 class Website extends App {
+  componentDidMount = () => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/serviceworker.js")
+        .catch((err) =>
+          console.error("Service worker registration failed", err)
+        );
+    } else {
+      console.log("Service worker not supported");
+    }
+  };
+
   render() {
     const { Component, pageProps, router, apollo } = this.props;
     return (
