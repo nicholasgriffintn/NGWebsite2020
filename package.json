@@ -1,6 +1,6 @@
 {
   "name": "nicholas-griffin-personal-website",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A website that's just for me.",
   "author": "Nicholas Griffin <me@nicholasgriffin.co.uk>",
   "main": "server/server.js",

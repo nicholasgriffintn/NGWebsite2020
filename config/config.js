@@ -14,7 +14,7 @@ const completeConfig = {
     websiteUrl: process.env.WEBSITE_URL || "https://nicholasgriffin.dev",
     appUrl: process.env.APP_URL || "https://nicholasgriffin.dev/",
     appName: manifest.name,
-    appTagline: "My awesome personal website",
+    appTagline: "Web Developer, Blogger and Technology Enthusiast",
     appDescription: packageJson.description,
     appKeywords: "It's a website, that's just for me.",
     mainSocialImageURL: "/meta/social-share.png",
