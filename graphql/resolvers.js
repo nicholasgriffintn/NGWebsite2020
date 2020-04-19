@@ -4,7 +4,7 @@ const { Op } = require("sequelize");
 const resolvers = {
   Query: {
     async article(root, { id }, { models }) {
-      return models.article.findByPk(id);
+      return models.article.cache().findByPk(id);
     },
     async allArticles(root, args, { models }) {
       console.log(args);
@@ -52,7 +52,7 @@ const resolvers = {
         }
       }
 
-      return models.article.findAll({
+      return models.article.cache("all-articles-hp").findAll({
         where,
         limit: limit ? Number(limit) : 6,
         order: [[sortArgArray[0], sortArgArray[2]]],

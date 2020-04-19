@@ -15,7 +15,6 @@ const PageHead = ({
     : `${config.appName} – ${config.appTagline}`;
 
   const iconUrl = "/icons/icon-512.png";
-  const fonts = [["Open Sans", "300,400,700"]];
 
   return (
     <Head>
@@ -162,17 +161,6 @@ const PageHead = ({
           content={config.googleSiteVerification}
         />
       ) : null}
-
-      {fonts.map((font) => (
-        <link
-          key={font[0]}
-          rel="stylesheet"
-          href={`https://fonts.googleapis.com/css?family=${`${font[0].replace(
-            / /g,
-            "+"
-          )}${font[1] ? ":" + font[1] : ""}`}&display=swap`}
-        />
-      ))}
 
       <link rel="stylesheet" href="/base.css" />
       <link rel="stylesheet" href="/app.css" />

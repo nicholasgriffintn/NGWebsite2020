@@ -52,6 +52,8 @@ function Footer() {
     });
   });
 
+  const fonts = [["Open Sans", "300,400,700"]];
+
   return (
     <footer>
       <div className="footer-wrap">
@@ -70,6 +72,17 @@ function Footer() {
           <button className="button button--primary">That's fine</button>
         </div>
       </div>
+
+      {fonts.map((font) => (
+        <link
+          key={font[0]}
+          rel="stylesheet"
+          href={`https://fonts.googleapis.com/css?family=${`${font[0].replace(
+            / /g,
+            "+"
+          )}${font[1] ? ":" + font[1] : ""}`}&display=swap`}
+        />
+      ))}
     </footer>
   );
 }

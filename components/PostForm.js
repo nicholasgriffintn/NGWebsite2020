@@ -2,6 +2,9 @@ import React from "react";
 
 const ReactMarkdown = require("react-markdown");
 
+import ReactMde from "react-mde";
+import "react-mde/lib/styles/css/react-mde-all.css";
+
 export default class PostForm extends React.Component {
   render() {
     return (
@@ -52,12 +55,9 @@ export default class PostForm extends React.Component {
           />
         </div>
         <div className="form-control post-editor markdown-editor">
-          <textarea
-            autoComplete="off"
-            style={{ height: 640, marginBottom: 24 }}
-            placeholder="Post Content"
-            onChange={this.props.onContentChange}
+          <ReactMde
             value={this.props.content}
+            onChange={this.props.onContentChange}
           />
           <div id="post-content" className="preview">
             <ReactMarkdown source={this.props.content} />

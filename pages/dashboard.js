@@ -52,11 +52,80 @@ export default class Index extends React.Component {
   };
 
   _handleChangeContent = (e) => {
-    this.setState({ content: e.target.value });
+    console.log(e);
+    this.setState({ content: e });
+  };
+
+  _slugify = (text) => {
+    const from = "ãàáäâẽèéëêìíïîõòóöôùúüûñç·/_,:;";
+    const to = "aaaaaeeeeeiiiiooooouuuunc------";
+
+    const newText = text
+      .split("")
+      .map((letter, i) =>
+        letter.replace(new RegExp(from.charAt(i), "g"), to.charAt(i))
+      );
+
+    return newText
+      .toString() // Cast to string
+      .toLowerCase() // Convert the string to lowercase letters
+      .trim() // Remove whitespace from both sides of a string
+      .replace(/\s+/g, "-") // Replace spaces with -
+      .replace(/&/g, "-y-") // Replace & with 'and'
+      .replace(/[^\w\-]+/g, "") // Remove all non-word chars
+      .replace(/\-\-+/g, "-"); // Replace multiple - with single -
   };
 
   _handleSave = () => {
-    //PUT SAVE HERE
+    if (
+      this.state &&
+      this.state.user &&
+      this.state.user.idToken &&
+      this.state.user.idToken.jwtToken
+    ) {
+      if (
+        this.state.title &&
+        this.state.description &&
+        this.state.tags &&
+        this.state.thumbnail &&
+        this.state.header &&
+        this.state.content
+      ) {
+        var myHeaders = new Headers();
+        myHeaders.append(
+          "Authorization",
+          "Bearer " + this.state.user.idToken.jwtToken
+        );
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+          slug: this._slugify(this.state.title),
+          title: this.state.title,
+          published: true,
+          description: this.state.description,
+          tags: this.state.tags,
+          thumbnail: this.state.thumbnail,
+          header: this.state.header,
+          content: this.state.content,
+        });
+
+        var requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: raw,
+          redirect: "follow",
+        };
+
+        fetch("/api/content", requestOptions)
+          .then((response) => response.text())
+          .then((result) => console.log(result))
+          .catch((error) => console.log("error", error));
+      } else {
+        console.error("incorrect params");
+      }
+    } else {
+      redirect({}, "/login");
+    }
   };
 
   render() {

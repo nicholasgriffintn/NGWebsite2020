@@ -28,10 +28,9 @@ export default class CreateAccount extends React.Component {
   }
 
   componentDidMount() {
-    const { user, loggedIn } = checkLoggedIn();
+    const { loggedIn } = checkLoggedIn();
     if (loggedIn) {
-      // If Logged in redirect to the home page
-      redirect({}, "/");
+      redirect({}, "/dashboard");
     }
   }
 
@@ -59,8 +58,6 @@ export default class CreateAccount extends React.Component {
     const cognitoUser = new CognitoUser(userData);
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: function (result) {
-        console.log("access token + " + result.getAccessToken().getJwtToken());
-        console.log("idToken + " + result.idToken.jwtToken);
         redirect({}, "/dashboard");
       },
 

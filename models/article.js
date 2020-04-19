@@ -37,7 +37,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
       },
     },
-    {}
+    {
+      timestamps: true,
+      paranoid: true,
+    }
   );
   article.associate = function (models) {
     // associations can be defined here

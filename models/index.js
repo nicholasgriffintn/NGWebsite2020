@@ -7,7 +7,7 @@ const basename = path.basename(__filename);
 const { config } = require("../config/config");
 const db = {};
 
-/* const Redis = require("ioredis");
+const Redis = require("ioredis");
 const redis = new Redis(config.REDIS_PORT, config.REDIS_HOST);
 
 const sequelizeCache = require("sequelize-transparent-cache");
@@ -16,9 +16,9 @@ const RedisAdaptor = require("sequelize-transparent-cache-ioredis");
 const redisAdaptor = new RedisAdaptor({
   client: redis,
   namespace: "model",
-  lifetime: 60 * 60
+  lifetime: 60 * 60,
 });
-const { withCache } = sequelizeCache(redisAdaptor); */
+const { withCache } = sequelizeCache(redisAdaptor);
 
 let sequelize;
 sequelize = new Sequelize(
@@ -35,8 +35,8 @@ fs.readdirSync(__dirname)
     );
   })
   .forEach((file) => {
-    //const model = withCache(sequelize["import"](path.join(__dirname, file)));
-    const model = sequelize["import"](path.join(__dirname, file));
+    const model = withCache(sequelize["import"](path.join(__dirname, file)));
+    //const model = sequelize["import"](path.join(__dirname, file));
     db[model.name] = model;
   });
 

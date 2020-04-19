@@ -43,7 +43,6 @@ const ArticleList = (query) => {
         })
         .then((responseAsJson) => {
           setLoading(false);
-          console.log(responseAsJson);
 
           setData(responseAsJson.data);
         });
@@ -55,7 +54,6 @@ const ArticleList = (query) => {
 
   return (
     <React.Fragment>
-      {console.log(dataState)}
       {dataState &&
         dataState.allArticles &&
         dataState.allArticles.map((article) => (

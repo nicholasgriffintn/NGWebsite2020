@@ -19,6 +19,9 @@ const typeDefs = require("../graphql/schema");
 const resolvers = require("../graphql/resolvers");
 const models = require("../models");
 
+const Redis = require("ioredis");
+const redis = new Redis(config.REDIS_PORT, config.REDIS_HOST);
+
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
@@ -58,15 +61,70 @@ app.prepare().then(() => {
   });
 
   // API Routes
+  server.get("/api/spotify", async function (req, res) {
+    redis.get("spotify-data", function (err, result) {
+      var request = require("request");
+
+      var options = {
+        url:
+          "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=NGriiffin&api_key=c91dd1f9b8fcf710e36a2a48c6c493a8&limit=10&format=json",
+        method: "GET",
+      };
+
+      function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+          redis.set("spotify-data", body, "ex", 500);
+
+          res.status(200).json({ body });
+        } else {
+          res
+            .status(500)
+            .json({ error: error, response: response, body: body });
+        }
+      }
+
+      request(options, callback);
+    });
+  });
+
+  server.get("/api/github", async function (req, res) {
+    redis.get("spotify-data", function (err, result) {
+      var request = require("request");
+
+      var options = {
+        url:
+          "https://api.github.com/users/nicholasgriffintn/repos?sort=updated&type=owner",
+        method: "GET",
+        headers: {
+          "User-Agent": "Nicholas-Griffin-App",
+        },
+      };
+
+      function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+          redis.set("github-data", body, "ex", 500);
+
+          res.status(200).json({ body });
+        } else {
+          res
+            .status(500)
+            .json({ error: error, response: response, body: body });
+        }
+      }
+
+      request(options, callback);
+    });
+  });
+
   server.post(`/api/content`, async function (req, res) {
     if (req.token) {
       cognitoExpress.validate(req.token, async function (err, response) {
         if (err || !response) {
           res.status(403).json({ error: "Token invalid" });
         } else {
-          console.log(response);
-
           req.apicacheGroup = "content-api";
+
+          console.log(req.body);
 
           if (response.sub === "e885ab87-0a49-43d6-95cb-7ddc8d4e1149") {
             try {
@@ -90,8 +148,7 @@ app.prepare().then(() => {
                   header: req.body.header,
                   content: req.body.content,
                 });
-
-                return record;
+                res.status(200).json({ record });
               } else {
                 res.status(500).json({ error: "Incorrect params" });
               }

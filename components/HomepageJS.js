@@ -243,6 +243,8 @@ function HomepageJS() {
 
           if (respData) {
             let parsedData = JSON.parse(respData);
+            parsedData = parsedData.body;
+            parsedData = JSON.parse(parsedData);
 
             var githubReposHTML = "";
 
@@ -295,8 +297,7 @@ function HomepageJS() {
       };
 
       // Set the request URL for Last.fm
-      var github_request_urls =
-        "https://api.github.com/users/nicholasgriffintn/repos?sort=updated&type=owner";
+      var github_request_urls = "/api/github";
 
       xhrGithubRepos.open("GET", github_request_urls);
       xhrGithubRepos.send();
@@ -336,8 +337,7 @@ function HomepageJS() {
       };
 
       // Set the request URL for Last.fm
-      var lastfm_request_url =
-        "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=NGriiffin&api_key=c91dd1f9b8fcf710e36a2a48c6c493a8&limit=10&format=json";
+      var lastfm_request_url = "/api/spotify";
 
       xhrLastFM.open("GET", lastfm_request_url);
       xhrLastFM.send();
@@ -345,6 +345,9 @@ function HomepageJS() {
 
     function getSpotifyData(data, reload) {
       let parsedData = JSON.parse(data);
+      parsedData = parsedData.body;
+      parsedData = JSON.parse(parsedData);
+
       var tracks = parsedData.recenttracks.track;
 
       //console.log(tracks);
