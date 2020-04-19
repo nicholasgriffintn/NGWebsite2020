@@ -162,9 +162,6 @@ const PageHead = ({
         />
       ) : null}
 
-      <link rel="stylesheet" href="/base.css" />
-      <link rel="stylesheet" href="/app.css" />
-
       {loadDrac && <link rel="stylesheet" href="/css/dracula.min.css" />}
     </Head>
   );

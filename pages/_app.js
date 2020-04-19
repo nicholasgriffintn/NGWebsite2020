@@ -5,6 +5,9 @@ import App from "next/app";
 import withData from "../components/utils/apollo-client";
 import { ApolloProvider } from "@apollo/react-hooks";
 
+import "../public/css/base.scss";
+import "../public/css/app.scss";
+
 /* import { googlePageview } from "../components/GoogleAnalytics";
 
 Router.events.on("routeChangeComplete", path => googlePageview(path)); */

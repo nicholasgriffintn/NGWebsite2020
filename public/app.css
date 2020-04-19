@@ -1,3 +1,8 @@
+body, html {
+    height: 100%;
+    width: 100%;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -1820,12 +1825,18 @@ body {
 
 .header-single-image-full {
   max-height: 500px;
-  min-height: 500px;
+  min-height: auto;
   overflow: hidden;
   width: 100%;
   height: auto;
   vertical-align: middle;
   display: block;
+}
+
+@media (min-width: 1080px) {
+  .header-single-image-full {
+    min-height: 500px;
+  }
 }
 
 h1#single-title {
