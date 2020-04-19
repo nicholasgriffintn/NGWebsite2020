@@ -58,7 +58,17 @@ function Footer() {
     <footer>
       <div className="footer-wrap">
         <div className="container-main">
-          <p>This is my footer. That's all I have for this...</p>
+          <span className="footer-text-left">No copyright required.</span>
+          <span className="footer-text-right">
+            Check out the source code for this site on{" "}
+            <a
+              href="https://github.com/nicholasgriffintn/NGWebsite2020"
+              title="Github Source Code"
+              target="_blank"
+            >
+              Github
+            </a>
+          </span>
         </div>
       </div>
       <div className="cookies js-cookie-message" hidden>

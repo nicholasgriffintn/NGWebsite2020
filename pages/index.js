@@ -50,8 +50,7 @@ function IndexPage({ query, asPath }) {
                     up late with <strong>Netflix</strong>.
                   </p>
                   <p>
-                    My dogs are a complete{" "}
-                    <span id="dogImageModal">idiots</span>
+                    My dogs are complete <span id="dogImageModal">idiots</span>
                   </p>
                   <p>But probably not as bad as some of my code...</p>
                   <p>We've all been through those days.</p>

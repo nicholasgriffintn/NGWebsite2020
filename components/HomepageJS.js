@@ -179,11 +179,11 @@ function HomepageJS() {
     function typedDelayTimeout() {
       fadeIn(document.querySelector(".scroll-down"));
 
-      if (!document.body.classList.contains("scrolled")) {
+      /* if (!document.body.classList.contains("scrolled")) {
         setTimeout(typedDelayInit, 5000);
       } else {
         setTimeout(defaultTypedDelayInit, 2500);
-      }
+      } */
     }
 
     function secondTypedDelayInit() {
@@ -217,6 +217,7 @@ function HomepageJS() {
 
     function thirdTypedDelayTimeout() {
       if (!document.body.classList.contains("scrolled")) {
+        console.log(document.getElementById("homepage-scroll-target"));
         if (document.getElementById("homepage-scroll-target")) {
           scrollIt(
             document.getElementById("homepage-scroll-target"),
