@@ -142,6 +142,38 @@ app.prepare().then(() => {
     resize(image, format, width, height).pipe(res);
   });
 
+  server.post(`/api/admin/clear-redis-cache`, async function (req, res) {
+    if (req.token) {
+      cognitoExpress.validate(req.token, async function (err, response) {
+        if (err || !response) {
+          res.status(403).json({ error: "Token invalid" });
+        } else {
+          req.apicacheGroup = "content-api";
+
+          console.log(req.body);
+
+          if (response.sub === "e885ab87-0a49-43d6-95cb-7ddc8d4e1149") {
+            try {
+              // "model:article:all-articles-hp"
+              // "model:article:5ce1f1631c9d440000cbc59c"
+              if (req.query.cache) {
+                await redis.del(req.query.cache);
+
+                res.status(200).json({ error: "Cache cleared" });
+              } else {
+                res.status(403).json({ error: "No cache name provided." });
+              }
+            } catch (error) {
+              res.status(500).json({ error: error });
+            }
+          } else {
+            res.status(403).json({ error: "Not allowed" });
+          }
+        }
+      });
+    }
+  });
+
   server.post(`/api/content`, async function (req, res) {
     if (req.token) {
       cognitoExpress.validate(req.token, async function (err, response) {
