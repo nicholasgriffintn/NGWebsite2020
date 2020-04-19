@@ -78,6 +78,7 @@
     "sequelize-cli": "^5.5.1",
     "sequelize-transparent-cache": "^2.2.3",
     "sequelize-transparent-cache-ioredis": "^2.2.3",
+    "sharp": "^0.25.2",
     "slate": "^0.57.1",
     "styled-components": "^5.0.1",
     "typed.js": "^2.0.11"

@@ -1462,7 +1462,7 @@ div#customSpotifyRightElementSongOverlay {
   background: 0 0;
   width: 100%;
   height: 100%;
-  color: #7d7d7d;
+  color: #f1f1f1;
 }
 
 #customSpotifyLeft,
@@ -1478,12 +1478,12 @@ div#customSpotifyRightElementSongOverlayContent {
 
 .trackLinkPlay svg {
   max-width: 50px;
-  fill: #7d7d7d;
+  fill: #f1f1f1;
   margin-top: 10px;
 }
 
 .trackLinkPlay svg path {
-  fill: #7d7d7d;
+  fill: #f1f1f1;
 }
 
 div#customSpotifyRightElementSongOverlayContent span {
@@ -1807,11 +1807,20 @@ body {
   .post-header-titles {
     margin: 0 auto !important;
   }
+
+  .single-content-wrap .ui.container {
+    margin: 0px !important;
+    padding: 0px !important;
+  }
+
+  .single-content-wrap .post-content-wrap {
+    padding: 0px;
+  }
 }
 
 .header-single-image-full {
   max-height: 500px;
-  min-height: 100px;
+  min-height: 500px;
   overflow: hidden;
   width: 100%;
   height: auto;
@@ -1983,7 +1992,7 @@ span#MusicOpeningWrapperTitle {
 }
 
 #customSpotifyRightElementSongOverlayContent h3 {
-  color: #7d7d7d;
+  color: #f1f1f1;
 }
 
 #customSpotifyLeftElementSongWrapper h3 {
@@ -2173,8 +2182,8 @@ div#nowPlayingOverlay {
 }
 
 #customSpotifyRightElementSongContainer {
-  -webkit-filter: blur(2px);
-  filter: blur(2px);
+  -webkit-filter: blur(2px) brightness(50%);
+  filter: blur(2px) brightness(50%);
 }
 
 div#customSpotifyRightElementSongContainer {

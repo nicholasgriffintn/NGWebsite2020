@@ -10,7 +10,7 @@ const ArticleListItem = ({ article, index, inProgress = false }) => {
       <div className="image">
         <img
           loading="lazy"
-          src={article.thumbnail}
+          src={`/api/images/resize?image=posts/${article.id}/thumbnail.png&width=400&height=200`}
           alt={article.title}
           className="lazy loaded"
         />

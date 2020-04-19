@@ -21,11 +21,25 @@ const JobPage = (props) => {
         ) : (
           <div className="single-content-wrap content-wrap">
             <div className="header-single-image-full">
-              <img
-                src={props.data.article.header}
-                alt={props.data.article.title}
-                loading="lazy"
-              />
+              <picture>
+                <source
+                  srcSet={`/api/images/resize?image=posts/${props.data.article.id}/header.png&width=639&height=1000, /api/images/resize?image=posts/${props.data.article.id}/header.png&width=1278&height=1000 2x`}
+                  media="(max-width: 639px)"
+                />
+                <source
+                  srcSet={`/api/images/resize?image=posts/${props.data.article.id}/header.png&width=1023&height=500, /api/images/resize?image=posts/${props.data.article.id}/header.png 2x`}
+                  media="(min-width: 640px) and (max-width: 1023px)"
+                />
+                <source
+                  srcSet={`/api/images/resize?image=posts/${props.data.article.id}/header.png`}
+                  media="(min-width: 1024px)"
+                />
+                <img
+                  src={`/api/images/resize?image=posts/${props.data.article.id}/header.png&width=1023&height=500`}
+                  loading="lazy"
+                  alt={props.data.article.title}
+                />
+              </picture>
             </div>
             <div className="container-main">
               <div className="ui container">
