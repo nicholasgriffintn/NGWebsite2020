@@ -1,29 +1,56 @@
-import React, { PureComponent } from "react";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import PropTypes from "prop-types";
+const React = require("react");
+const PropTypes = require("prop-types");
+const hljs = require("highlight.js");
 
-class CodeBlock extends PureComponent {
-  static propTypes = {
-    value: PropTypes.string.isRequired,
-    language: PropTypes.string,
-  };
+class CodeBlock extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.setRef = this.setRef.bind(this);
+  }
 
-  static defaultProps = {
-    language: null,
-  };
+  setRef(el) {
+    this.codeEl = el;
+  }
+
+  componentDidMount() {
+    this.highlightCode();
+  }
+
+  componentDidUpdate() {
+    this.highlightCode();
+  }
+
+  highlightCode() {
+    hljs.highlightBlock(this.codeEl);
+  }
 
   render() {
-    const { language, value } = this.props;
-    const codeString = "(num) => num + 1";
     return (
-      <figure className="highlight">
-        <SyntaxHighlighter language={language} style={docco}>
-          {codeString}
-          {value}
-        </SyntaxHighlighter>
-      </figure>
+      <div
+        className={
+          this.props.title ? "code-block-wrap with-title" : "code-block-wrap"
+        }
+      >
+        {this.props.title && (
+          <span class="code-block-title">{this.props.title}</span>
+        )}
+        <pre>
+          <code ref={this.setRef} className={`language-${this.props.language}`}>
+            {this.props.value}
+          </code>
+        </pre>
+      </div>
     );
   }
 }
 
-export default CodeBlock;
+CodeBlock.defaultProps = {
+  language: "",
+};
+
+CodeBlock.propTypes = {
+  value: PropTypes.string.isRequired,
+  language: PropTypes.string,
+};
+
+module.exports = CodeBlock;

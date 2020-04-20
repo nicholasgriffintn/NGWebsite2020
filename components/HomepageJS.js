@@ -338,7 +338,8 @@ function HomepageJS() {
       };
 
       // Set the request URL for Last.fm
-      var lastfm_request_url = "/api/spotify";
+      var lastfm_request_url =
+        "/api/spotify?timestamp=" + Math.round(new Date().getTime() / 1000);
 
       xhrLastFM.open("GET", lastfm_request_url);
       xhrLastFM.send();

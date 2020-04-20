@@ -116,7 +116,7 @@ export default class Index extends React.Component {
           redirect: "follow",
         };
 
-        fetch("/api/content", requestOptions)
+        fetch("/api/admin/content", requestOptions)
           .then((response) => response.text())
           .then((result) => console.log(result))
           .catch((error) => console.log("error", error));

@@ -32,7 +32,7 @@ header {
 }
 
 main {
-  background-color: #ffffff;
+  background-color: transparent;
   width: 100%;
   position: absolute;
   top: 0;
@@ -1681,7 +1681,7 @@ html {
   min-height: 100vh;
   width: 100vw;
   position: relative;
-  background: #fff;
+  background: transparent;
   z-index: 9;
   padding-top: 40px;
   padding-bottom: 40px;
@@ -2566,12 +2566,8 @@ div#nowPlayingOverlay {
 }
 
 #customSpotifyRightElementSongContainer {
-  -webkit-filter: blur(2px) brightness(50%);
-  filter: blur(2px) brightness(50%);
-}
-
-div#customSpotifyRightElementSongContainer {
-  border: 1px solid #ddd;
+  -webkit-filter: brightness(50%);
+  filter: brightness(50%);
 }
 
 .footer-text-left,
@@ -2586,4 +2582,82 @@ span.footer-text-right {
 
 .footer-wrap a {
   color: #fff;
+}
+
+.darkMode_Switch svg path {
+  fill: #f1f1f1;
+}
+
+pre {
+  position: relative;
+}
+
+pre .codeTitle {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  padding: 10px;
+  background: #a4bf10;
+  z-index: 99;
+}
+
+.code-block-wrap pre {
+  padding: 0px !important;
+}
+
+.code-block-wrap .hljs {
+  padding: 1rem;
+}
+
+.code-block-wrap.with-title .hljs {
+  padding-top: calc(1rem + 10px);
+}
+
+.code-block-wrap {
+  position: relative;
+}
+
+span.code-block-title {
+  position: absolute;
+  top: -10px;
+  z-index: 9;
+  background: rgb(239, 191, 0);
+  left: 0;
+  padding: 2px 15px;
+  color: #282a36;
+}
+
+body.body-dark {
+  background-color: rgb(26, 29, 35);
+  color: #f1f1f1;
+}
+
+.body-dark h1,
+.body-dark h2,
+.body-dark h3,
+.body-dark h4,
+.body-dark h5 {
+  color: #f1f1f1;
+}
+
+body.body-dark main .content-wrap {
+  background: rgb(26, 29, 35);
+}
+
+.body-dark .background {
+  background: linear-gradient(135deg, rgb(67, 75, 93), rgb(26, 29, 36));
+}
+
+.body-dark .coloured-container {
+  background: #13151b;
+}
+
+.body-dark .ui.card .image,
+.body-dark .ui.card .content {
+  background: #13151b !important;
+  color: #f1f1f1 !important;
+}
+
+body.body-light main .content-wrap {
+  background: #fff;
 }

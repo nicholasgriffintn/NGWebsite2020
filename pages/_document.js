@@ -3,6 +3,22 @@ import Document, { Head, Main, NextScript } from "next/document";
 
 import { config } from "../config/config";
 
+import { useDarkMode } from "../hooks";
+
+function DocumentBody() {
+  const [colorMode] = useDarkMode("light");
+  // You can use hooks here
+  return (
+    <body
+      className={colorMode && colorMode === "dark" ? "body-dark" : "body-light"}
+    >
+      {console.log(colorMode)}
+      <Main />
+      <NextScript />
+    </body>
+  );
+}
+
 export default class MyDocument extends Document {
   // this.props (Server only): __NEXT_DATA__, ampPath, assetPrefix, bodyTags, canonicalBase, dangerousAsPath, dataOnly, devFiles, dynamicImports, files, hasCssMode, head, headTags, html, htmlProps, hybridAmp, inAmpMode, isDevelopment, polyfillFiles, staticMarkup, styles
   render() {
@@ -23,10 +39,7 @@ export default class MyDocument extends Document {
             </>
           ) : null}
         </Head>
-        <body>
-          <Main />
-          <NextScript />
-        </body>
+        <DocumentBody />
       </html>
     );
   }

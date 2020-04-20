@@ -1,6 +1,8 @@
 import React, { useState, useEffect, Fragment } from "react";
 import Link from "next/link";
 
+import DarkMode from "./DarkModeController";
+
 function HeaderNav({}) {
   const [toggleMobileNav, setToggleMobileNav] = useState(false);
 
@@ -30,6 +32,7 @@ function HeaderNav({}) {
           )}
         </div>
         <ul className={toggleMobileNav ? "toggledMobile" : ""}>
+          <li className="darkMode_Switch"></li>
           <li>
             <Link href="/">
               <a

@@ -6,6 +6,7 @@ import { config } from "../../config/config";
 import dayjs from "dayjs";
 
 const ReactMarkdown = require("react-markdown");
+const CodeBlock = require("../../components/blocks/CodeBlock");
 
 const JobPage = (props) => {
   return (
@@ -27,15 +28,15 @@ const JobPage = (props) => {
                   media="(max-width: 639px)"
                 />
                 <source
-                  srcSet={`/api/images/resize?image=posts/${props.data.article.id}/header.png&width=1023&height=500, /api/images/resize?image=posts/${props.data.article.id}/header.png 2x`}
+                  srcSet={`/api/images/resize?image=posts/${props.data.article.id}/header.png&width=1023&height=500, /api/images/resize?image=posts/${props.data.article.id}/header.png&width=1680&height=500 2x`}
                   media="(min-width: 640px) and (max-width: 1023px)"
                 />
                 <source
-                  srcSet={`/api/images/resize?image=posts/${props.data.article.id}/header.png`}
+                  srcSet={`/api/images/resize?image=posts/${props.data.article.id}/header.png&width=1680&height=500`}
                   media="(min-width: 1024px)"
                 />
                 <img
-                  src={`/api/images/resize?image=posts/${props.data.article.id}/header.png&width=1023&height=500`}
+                  src={`/api/images/resize?image=posts/${props.data.article.id}/header.png&width=1680&height=500`}
                   loading="lazy"
                   alt={props.data.article.title}
                 />
@@ -65,6 +66,7 @@ const JobPage = (props) => {
                     <ReactMarkdown
                       escapeHtml={false}
                       linkTarget={"_blank"}
+                      renderers={{ code: CodeBlock }}
                       source={props.data.article.content}
                     />
                   </div>

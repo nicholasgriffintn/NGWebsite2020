@@ -174,7 +174,7 @@ app.prepare().then(() => {
     }
   });
 
-  server.post(`/api/content`, async function (req, res) {
+  server.post(`/api/admin/content`, async function (req, res) {
     if (req.token) {
       cognitoExpress.validate(req.token, async function (err, response) {
         if (err || !response) {
