@@ -24,6 +24,10 @@ const resize = require("./resize");
 const Redis = require("ioredis");
 const redis = new Redis(config.REDIS_PORT, config.REDIS_HOST);
 
+const rateLimit = require("express-rate-limit");
+
+const speakeasy = require("speakeasy");
+
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
@@ -62,8 +66,20 @@ app.prepare().then(() => {
     next();
   });
 
+  server.set("trust proxy", 1);
+
+  const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+  });
+
+  const imageLimiter = rateLimit({
+    windowMs: 5 * 60 * 1000, // 5 minutes
+    max: 1000, // limit each IP to 1000 requests per windowMs
+  });
+
   // API Routes
-  server.get("/api/spotify", async function (req, res) {
+  server.get("/api/spotify", limiter, async function (req, res) {
     redis.get("spotify-data", function (err, result) {
       var request = require("request");
 
@@ -89,7 +105,7 @@ app.prepare().then(() => {
     });
   });
 
-  server.get("/api/github", async function (req, res) {
+  server.get("/api/github", limiter, async function (req, res) {
     redis.get("spotify-data", function (err, result) {
       var request = require("request");
 
@@ -118,14 +134,12 @@ app.prepare().then(() => {
     });
   });
 
-  server.get("/api/images/resize", (req, res) => {
+  server.get("/api/images/resize", imageLimiter, async (req, res) => {
     // Extract the query-parameter
     const widthString = req.query.width;
     const heightString = req.query.height;
-    const format = req.query.format;
-    const image = req.query.image
-      ? "public/images/" + req.query.image
-      : "public/icon.png";
+    const format = req.query.format || "png";
+    const image = req.query.image ? "images/" + req.query.image : "icon.png";
 
     // Parse to integer if possible
     let width, height;
@@ -135,14 +149,179 @@ app.prepare().then(() => {
     if (heightString) {
       height = parseInt(heightString);
     }
-    // Set the content-type of the response
-    res.type(`image/${format || "png"}`);
 
     // Get the resized image
-    resize(image, format, width, height).pipe(res);
+    const imageResized = await resize(image, format, width, height);
+
+    console.log(imageResized);
+
+    if (imageResized && !imageResized.statusCode) {
+      // Set the content-type of the response
+      res.type(`image/${format || "png"}`);
+
+      var imageResizedBase = Buffer.from(imageResized, "base64");
+
+      res.end(imageResizedBase);
+    } else {
+      // Set the content-type of the response
+      res.type(`application/json"}`);
+
+      res.send(imageResizedBase);
+    }
   });
 
-  server.post(`/api/admin/clear-redis-cache`, async function (req, res) {
+  server.get(`/api/have-i-been-pwned`, limiter, async function (req, res) {
+    req.apicacheGroup = "haveibeenpwned-api";
+
+    if (req.query && req.query.account) {
+      try {
+        var request = require("request");
+
+        var HIBP_API_KEY = process.env.HIBP_API_KEY || "";
+
+        var options = {
+          url: `https://haveibeenpwned.com/api/v3/breachedaccount/${encodeURIComponent(
+            req.body.account
+          )}?truncateResponse=false`,
+          method: "GET",
+          headers: {
+            "User-Agent": "Nicholas-Griffin-App",
+            "hibp-api-key": HIBP_API_KEY,
+          },
+        };
+
+        function callback(error, response, body) {
+          if (!error && response.statusCode == 200) {
+            redis.set(
+              `hibp-data-${encodeURIComponent(req.body.account)}`,
+              body,
+              "ex",
+              500
+            );
+
+            res.status(200).json(JSON.parse(body));
+          } else {
+            res
+              .status(500)
+              .json({ error: error, response: response, body: body });
+          }
+        }
+
+        request(options, callback);
+      } catch (error) {
+        res.status(500).json({ error: error });
+      }
+    } else {
+      res.status(403).json({ error: "Not allowed" });
+    }
+  });
+
+  server.post(`/api/admin/two-factor`, limiter, async function (req, res) {
+    if (req.token) {
+      cognitoExpress.validate(req.token, async function (err, response) {
+        if (err || !response) {
+          res.status(403).json({ error: "Token invalid" });
+        } else {
+          if (response.sub === "e885ab87-0a49-43d6-95cb-7ddc8d4e1149") {
+            try {
+              const genSecret = speakeasy.generateSecret();
+
+              const genSecretBase = genSecret.base32;
+
+              const genSecretURL = genSecret.otpauth_url;
+
+              async function updateOrCreate(model, where, newItem) {
+                // First try to find the record
+                const foundItem = await model.findOne({ where });
+                if (!foundItem) {
+                  // Item not found, create a new one
+                  const item = await model.create(newItem);
+                  return { item, created: true };
+                }
+                // Found an item, update it
+                const item = await model.update(newItem, { where });
+                return { item, created: false };
+              }
+
+              await updateOrCreate(
+                models.user,
+                { id: response.sub },
+                {
+                  id: response.sub,
+                  two_factor_secret: genSecretBase,
+                }
+              );
+
+              res
+                .status(200)
+                .json({ secret: genSecretBase, secretURL: genSecretURL });
+            } catch (error) {
+              console.error(error);
+              res.status(500).json({ error: error });
+            }
+          } else {
+            res.status(403).json({ error: "Not allowed" });
+          }
+        }
+      });
+    }
+  });
+
+  server.post(`/api/admin/verify-two-factor`, limiter, async function (
+    req,
+    res
+  ) {
+    if (req.token) {
+      cognitoExpress.validate(req.token, async function (err, response) {
+        if (err || !response) {
+          res.status(403).json({ error: "Token invalid" });
+        } else {
+          if (response.sub === "e885ab87-0a49-43d6-95cb-7ddc8d4e1149") {
+            try {
+              const userData = await models.user.findByPk(response.sub);
+              if (userData) {
+                const userSecret = userData.two_factor_secret;
+
+                const userVerfied = speakeasy.totp.verify({
+                  secret: userSecret,
+                  encoding: "base32",
+                  token: req.body.twofactor,
+                });
+
+                if (userVerfied) {
+                  await models.user.update(
+                    {
+                      two_factor_enabled: true,
+                    },
+                    { where: { id: response.sub } }
+                  );
+
+                  res.status(200).json({ status: "Verified" });
+                } else {
+                  res
+                    .status(500)
+                    .json({ error: "User not verified", status: "Unverified" });
+                }
+              } else {
+                res.status(500).json({ error: "User not found" });
+              }
+            } catch (error) {
+              console.error(error);
+
+              res.status(500).json({ error: error });
+            }
+          } else {
+            res.status(403).json({ error: "Not allowed" });
+          }
+        }
+      });
+    }
+  });
+
+  server.post(`/api/admin/clear-redis-cache`, limiter, async function (
+    req,
+    res
+  ) {
     if (req.token) {
       cognitoExpress.validate(req.token, async function (err, response) {
         if (err || !response) {
@@ -150,12 +329,10 @@ app.prepare().then(() => {
         } else {
           req.apicacheGroup = "content-api";
 
-          console.log(req.body);
-
           if (response.sub === "e885ab87-0a49-43d6-95cb-7ddc8d4e1149") {
             try {
               // "model:article:all-articles-hp"
-              // "model:article:5ce1f1631c9d440000cbc59c"
+              // "model:article:project-ng-2020-building-an-express-image-resizing-api"
               if (req.query.cache) {
                 await redis.del(req.query.cache);
 
@@ -174,7 +351,7 @@ app.prepare().then(() => {
     }
   });
 
-  server.post(`/api/admin/content`, async function (req, res) {
+  server.post(`/api/admin/content`, limiter, async function (req, res) {
     if (req.token) {
       cognitoExpress.validate(req.token, async function (err, response) {
         if (err || !response) {

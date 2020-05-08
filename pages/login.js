@@ -42,6 +42,10 @@ export default class CreateAccount extends React.Component {
     this.setState({ password: e.target.value });
   }
 
+  handleTwoFactorChange(e) {
+    this.setState({ twofactor: e.target.value });
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     const email = this.state.email.trim();

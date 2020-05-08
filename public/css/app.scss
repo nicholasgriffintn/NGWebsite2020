@@ -2256,7 +2256,8 @@ header {
 }
 
 p img {
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   height: auto;
 }
 
@@ -2660,4 +2661,13 @@ body.body-dark main .content-wrap {
 
 body.body-light main .content-wrap {
   background: #fff;
+}
+
+.qrcode-wrap {
+  margin-top: 30px;
+}
+
+.qrcode-wrap canvas {
+  width: 256px !important;
+  height: 256px !important;
 }
