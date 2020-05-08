@@ -7,7 +7,7 @@ const S3 = new AWS.S3({
   signatureVersion: "v4",
 });
 
-module.exports = function resize(path, format, width, height) {
+module.exports = function resize(path, format, width, height, fit, position) {
   try {
     let quality = 80;
 
@@ -19,7 +19,10 @@ module.exports = function resize(path, format, width, height) {
       .then((data) => {
         if (data && data.Body) {
           return sharp(data.Body)
-            .resize(width, height)
+            .resize(width, height, {
+              fit: fit ? fit : "cover",
+              position: position ? position : "centre",
+            })
             .toFormat(format, { quality: quality })
             .toBuffer();
         } else {

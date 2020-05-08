@@ -140,6 +140,8 @@ app.prepare().then(() => {
     const heightString = req.query.height;
     const format = req.query.format || "png";
     const image = req.query.image ? "images/" + req.query.image : "icon.png";
+    const fit = req.query.fit || "cover";
+    const position = req.query.position || "centre";
 
     // Parse to integer if possible
     let width, height;
@@ -151,7 +153,14 @@ app.prepare().then(() => {
     }
 
     // Get the resized image
-    const imageResized = await resize(image, format, width, height);
+    const imageResized = await resize(
+      image,
+      format,
+      width,
+      height,
+      fit,
+      position
+    );
 
     console.log(imageResized);
 

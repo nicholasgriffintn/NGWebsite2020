@@ -24,7 +24,7 @@ const JobPage = (props) => {
             <div className="header-single-image-full">
               <picture>
                 <source
-                  srcSet={`/api/images/resize?image=posts/${props.data.article.id}/header.png&width=639&height=1000, /api/images/resize?image=posts/${props.data.article.id}/header.png&width=1278&height=1000 2x`}
+                  srcSet={`/api/images/resize?image=posts/${props.data.article.id}/header.png&width=639&height=1000&position=left%20top, /api/images/resize?image=posts/${props.data.article.id}/header.png&width=1278&height=1000&position=left%20top 2x`}
                   media="(max-width: 639px)"
                 />
                 <source
