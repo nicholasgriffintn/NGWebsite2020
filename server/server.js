@@ -382,17 +382,38 @@ app.prepare().then(() => {
                 req.body.header &&
                 req.body.content
               ) {
-                const record = await models.article.create({
-                  id: req.body.slug,
-                  title: req.body.title,
-                  published: req.body.published || false,
-                  description: req.body.description,
-                  tags: req.body.tags,
-                  thumbnail: req.body.thumbnail,
-                  header: req.body.header,
-                  content: req.body.content,
-                });
-                res.status(200).json({ record });
+                const postData = await models.article.findByPk(req.body.slug);
+                if (postData) {
+                  const record = await models.article.update(
+                    {
+                      id: req.body.slug,
+                      title: req.body.title,
+                      published: req.body.published || false,
+                      description: req.body.description,
+                      tags: req.body.tags,
+                      thumbnail: req.body.thumbnail,
+                      header: req.body.header,
+                      content: req.body.content,
+                    },
+                    { where: { id: req.body.slug } }
+                  );
+
+                  await redis.del(`model:article:${req.body.slug}`);
+
+                  res.status(200).json({ record });
+                } else {
+                  const record = await models.article.create({
+                    id: req.body.slug,
+                    title: req.body.title,
+                    published: req.body.published || false,
+                    description: req.body.description,
+                    tags: req.body.tags,
+                    thumbnail: req.body.thumbnail,
+                    header: req.body.header,
+                    content: req.body.content,
+                  });
+                  res.status(200).json({ record });
+                }
               } else {
                 res.status(500).json({ error: "Incorrect params" });
               }

@@ -9,7 +9,13 @@ export default class PostForm extends React.Component {
   render() {
     return (
       <div style={this.props.style}>
+        {this.props.id && (
+          <div className="form-control">
+            <span>ID: {this.props.id}</span>
+          </div>
+        )}
         <div className="form-control">
+          <label className="form-control">Title</label>
           <input
             autoComplete="off"
             style={{ marginBottom: 24 }}
@@ -19,6 +25,7 @@ export default class PostForm extends React.Component {
           />
         </div>
         <div className="form-control">
+          <label className="form-control">Description</label>
           <textarea
             autoComplete="off"
             style={{ marginBottom: 24 }}
@@ -28,6 +35,7 @@ export default class PostForm extends React.Component {
           />
         </div>
         <div className="form-control">
+          <label className="form-control">Tags</label>
           <input
             autoComplete="off"
             style={{ marginBottom: 24 }}
@@ -37,6 +45,7 @@ export default class PostForm extends React.Component {
           />
         </div>
         <div className="form-control">
+          <label className="form-control">Thumbnail</label>
           <input
             autoComplete="off"
             style={{ marginBottom: 24 }}
@@ -46,6 +55,7 @@ export default class PostForm extends React.Component {
           />
         </div>
         <div className="form-control">
+          <label className="form-control">Header</label>
           <input
             autoComplete="off"
             style={{ marginBottom: 24 }}
@@ -55,6 +65,7 @@ export default class PostForm extends React.Component {
           />
         </div>
         <div className="form-control post-editor markdown-editor">
+          <label className="form-control">Post Content</label>
           <ReactMde
             value={this.props.content}
             onChange={this.props.onContentChange}

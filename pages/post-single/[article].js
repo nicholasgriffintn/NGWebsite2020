@@ -55,8 +55,21 @@ const JobPage = (props) => {
                     <small>
                       Posted{" "}
                       {dayjs(props.data.article.createdAt).format(
-                        "DD-MM-YYYY HH:mm"
+                        "dddd, MMMM D YYYY h:mm a"
                       )}
+                    </small>
+                    <br></br>
+                    <small>
+                      {props.data.article.updatedAt &&
+                        props.data.article.createdAt !==
+                          props.data.article.updatedAt && (
+                          <>
+                            <>Updated </>
+                            {dayjs(props.data.article.updatedAt).format(
+                              "dddd, MMMM D YYYY h:mm a"
+                            )}
+                          </>
+                        )}
                     </small>
                     <hr></hr>
                   </div>

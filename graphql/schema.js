@@ -3,6 +3,8 @@
 const { gql } = require("apollo-server");
 
 const typeDefs = gql`
+  scalar DateTime
+
   type article {
     id: ID
     title: String
@@ -11,8 +13,8 @@ const typeDefs = gql`
     tags: String
     thumbnail: String
     header: String
-    createdAt: String
-    updatedAt: String
+    createdAt: DateTime
+    updatedAt: DateTime
   }
 
   type Query {

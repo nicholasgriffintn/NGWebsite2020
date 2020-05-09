@@ -21,7 +21,7 @@ const ArticleListItem = ({ article, index, inProgress = false }) => {
         </a>{" "}
         <div className="meta">
           <span className="date">
-            {dayjs(article.createdAt).format("DD-MM-YYYY HH:mm")}
+            {dayjs(article.createdAt).format("dddd, MMMM D YYYY h:mm a")}
           </span>
         </div>{" "}
         <div className="description">{article.description}</div>

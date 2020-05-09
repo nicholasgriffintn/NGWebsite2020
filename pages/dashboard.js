@@ -6,7 +6,9 @@ import Page from "../components/Page";
 
 import PostForm from "../components/PostForm";
 
-export default class Index extends React.Component {
+import { config } from "../config/config";
+
+class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,6 +19,9 @@ export default class Index extends React.Component {
       thumbnail: "",
       header: "",
       content: "",
+      postData: {},
+      id: "",
+      isEditing: false,
     };
   }
 
@@ -28,6 +33,19 @@ export default class Index extends React.Component {
       this.setState({ user: user });
     } else {
       redirect({}, "/login");
+    }
+
+    if (this.props.postData && this.props.postData.article) {
+      this.setState({
+        isEditing: true,
+        title: this.props.postData.article.title || "",
+        description: this.props.postData.article.description || "",
+        content: this.props.postData.article.content || "",
+        header: this.props.postData.article.header || "",
+        thumbnail: this.props.postData.article.thumbnail || "",
+        tags: this.props.postData.article.tags || "",
+        id: this.props.postData.article.id || "",
+      });
     }
   }
 
@@ -151,9 +169,17 @@ export default class Index extends React.Component {
                   <pre>{this.state.user.idToken.jwtToken}</pre>
                 </div>
 
-                <h2>Create a post</h2>
+                {this.state.isEditing &&
+                this.props.postData &&
+                this.props.postData.article ? (
+                  <h2>Edit the post: {this.props.postData.article.title}</h2>
+                ) : (
+                  <h2>Create a post</h2>
+                )}
 
                 <PostForm
+                  isEditing={this.state.isEditing}
+                  id={this.state.id}
                   title={this.state.title}
                   description={this.state.description}
                   tags={this.state.tags}
@@ -180,3 +206,59 @@ export default class Index extends React.Component {
     );
   }
 }
+
+Dashboard.getInitialProps = async (context) => {
+  let error = false;
+  let loading = true;
+  let postData = {};
+
+  if (context.query && context.query.article) {
+    console.log(context.query.article);
+
+    return fetch(config.websiteUrl + "/api/graphql", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        operationName: "GetArticle",
+        variables: { id: context.query.article },
+        query: `query GetArticle {
+        article(id: "${context.query.article}") {
+          id
+          title
+          content
+          description
+          tags
+          thumbnail
+          header
+          createdAt
+          updatedAt
+        }
+      }`,
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((responseAsJson) => {
+        loading = false;
+
+        // Pass data to the page via props
+        return { postData: responseAsJson.data };
+      })
+      .catch((e) => {
+        console.error("error generating server side code");
+        console.error(e);
+        return { postData: { message: "No article id found" } };
+      });
+  } else {
+    error = {
+      message: "No article id found",
+    };
+    loading = false;
+    return { postData: { message: "No article id found" } };
+  }
+};
+
+export default Dashboard;

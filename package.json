@@ -54,6 +54,7 @@
     "fs": "^0.0.1-security",
     "glob": "^7.1.6",
     "graphql": "^14.6.0",
+    "graphql-iso-date": "^3.6.1",
     "graphql-tag": "2.10.3",
     "he": "^1.2.0",
     "helmet": "^3.22.0",

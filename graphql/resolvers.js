@@ -1,7 +1,9 @@
 const Sequelize = require("sequelize");
 const { Op } = require("sequelize");
+const { GraphQLDateTime } = require("graphql-iso-date");
 
 const resolvers = {
+  DateTime: GraphQLDateTime,
   Query: {
     async article(root, { id }, { models }) {
       return models.article.cache().findByPk(id);
