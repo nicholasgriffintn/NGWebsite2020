@@ -9,8 +9,6 @@ const resolvers = {
       return models.article.cache().findByPk(id);
     },
     async allArticles(root, args, { models }) {
-      console.log(args);
-
       let where = {};
       let limit = 6;
       let offset = 0;

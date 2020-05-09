@@ -70,7 +70,6 @@ class Dashboard extends React.Component {
   };
 
   _handleChangeContent = (e) => {
-    console.log(e);
     this.setState({ content: e });
   };
 
@@ -109,12 +108,12 @@ class Dashboard extends React.Component {
         this.state.header &&
         this.state.content
       ) {
-        var myHeaders = new Headers();
-        myHeaders.append(
+        var headers = new Headers();
+        headers.append(
           "Authorization",
           "Bearer " + this.state.user.idToken.jwtToken
         );
-        myHeaders.append("Content-Type", "application/json");
+        headers.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
           slug: this._slugify(this.state.title),
@@ -129,7 +128,7 @@ class Dashboard extends React.Component {
 
         var requestOptions = {
           method: "POST",
-          headers: myHeaders,
+          headers: headers,
           body: raw,
           redirect: "follow",
         };
@@ -137,7 +136,7 @@ class Dashboard extends React.Component {
         fetch("/api/admin/content", requestOptions)
           .then((response) => response.text())
           .then((result) => console.log(result))
-          .catch((error) => console.log("error", error));
+          .catch((error) => console.error("error", error));
       } else {
         console.error("incorrect params");
       }
@@ -213,8 +212,6 @@ Dashboard.getInitialProps = async (context) => {
   let postData = {};
 
   if (context.query && context.query.article) {
-    console.log(context.query.article);
-
     return fetch(config.websiteUrl + "/api/graphql", {
       method: "POST",
       headers: {

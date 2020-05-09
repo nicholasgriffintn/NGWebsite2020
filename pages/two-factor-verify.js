@@ -51,10 +51,9 @@ export default class Index extends React.Component {
     fetch("/api/admin/verify-two-factor", requestOptions)
       .then((response) => response.text())
       .then((result) => {
-        console.log(result);
         this.setState({ qrcode_secret_url: result.secretURL });
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => console.error("error", error));
   }
 
   render() {

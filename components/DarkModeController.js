@@ -21,8 +21,6 @@ export default function DarkMode({ initial, ...rest }) {
   return (
     <Box {...rest}>
       {transitions.map(({ item, props, key }) => {
-        console.log(item);
-
         if (!item) {
           item = "light";
         }

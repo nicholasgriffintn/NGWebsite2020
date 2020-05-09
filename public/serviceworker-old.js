@@ -44,8 +44,6 @@ addEventListener("install", (installEvent) => {
 addEventListener("fetch", (fetchEvent) => {
   const request = fetchEvent.request;
 
-  //console.log(request);
-
   // Check if the request URL iis from us, otherwise ignore it
   if (
     request.url.indexOf("https://nicholasgriffin.dev") ||

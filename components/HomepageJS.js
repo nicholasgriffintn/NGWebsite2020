@@ -217,7 +217,6 @@ function HomepageJS() {
 
     function thirdTypedDelayTimeout() {
       if (!document.body.classList.contains("scrolled")) {
-        console.log(document.getElementById("homepage-scroll-target"));
         if (document.getElementById("homepage-scroll-target")) {
           scrollIt(
             document.getElementById("homepage-scroll-target"),

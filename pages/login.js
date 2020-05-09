@@ -66,7 +66,7 @@ export default class CreateAccount extends React.Component {
       },
 
       onFailure: function (err) {
-        console.log("error ", err);
+        console.error("error ", err);
       },
 
       mfaRequired: function (codeDeliveryDetails) {

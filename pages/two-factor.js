@@ -51,10 +51,9 @@ export default class Index extends React.Component {
         .then((response) => response.text())
         .then((result) => {
           result = JSON.parse(result);
-          console.log(result);
           this.setState({ qrcode_secret_url: result.secretURL });
         })
-        .catch((error) => console.log("error", error));
+        .catch((error) => console.error("error", error));
     }
   }
 
@@ -75,7 +74,6 @@ export default class Index extends React.Component {
                 >
                   Generate Code
                 </button>
-                {console.log(this.state.qrcode_secret_url)}
                 {this.state.qrcode_secret_url && (
                   <div className="qrcode-wrap">
                     <QRCode value={this.state.qrcode_secret_url} />

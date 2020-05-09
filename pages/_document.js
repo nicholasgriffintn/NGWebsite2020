@@ -12,7 +12,6 @@ function DocumentBody() {
     <body
       className={colorMode && colorMode === "dark" ? "body-dark" : "body-light"}
     >
-      {console.log(colorMode)}
       <Main />
       <NextScript />
     </body>

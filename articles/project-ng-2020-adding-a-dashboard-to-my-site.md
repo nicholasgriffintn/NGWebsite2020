@@ -176,8 +176,6 @@ Dashboard.getInitialProps = async (context) => {
   let postData = {};
 
   if (context.query && context.query.article) {
-    console.log(context.query.article);
-
     return fetch(config.websiteUrl + "/api/graphql", {
       method: "POST",
       headers: {
@@ -399,7 +397,7 @@ _handleSave = () => {
       fetch("/api/admin/content", requestOptions)
         .then((response) => response.text())
         .then((result) => console.log(result))
-        .catch((error) => console.log("error", error));
+        .catch((error) => console.error("error", error));
     } else {
       console.error("incorrect params");
     }

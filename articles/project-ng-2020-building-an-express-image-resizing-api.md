@@ -174,8 +174,6 @@ server.get("/api/images/resize", imageLimiter, async (req, res) => {
   // Get the resized image
   const imageResized = await resize(image, format, width, height);
 
-  console.log(imageResized);
-
   if (imageResized && !imageResized.statusCode) {
     // Set the content-type of the response
     res.type(`image/${format || "png"}`);
