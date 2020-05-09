@@ -18,7 +18,13 @@ const typeDefs = gql`
   }
 
   type Query {
-    allArticles: [article!]!
+    allArticles(
+      limit: Int
+      offset: Int
+      title: String
+      search: String
+      sort: String
+    ): [article!]!
 
     article(id: ID): article
   }

@@ -13,15 +13,15 @@ const resolvers = {
       let limit = 6;
       let offset = 0;
 
-      if (args.limit) {
-        limit = args.limit;
-      }
-      if (args.offset) {
-        limit = args.offset;
-      }
-
       // Always ensure that there is a filter
       if (args) {
+        if (args.limit) {
+          limit = args.limit;
+        }
+        if (args.offset) {
+          offset = args.offset;
+        }
+
         if (args.title && args.title !== "") {
           where = {
             ...where,
@@ -52,11 +52,14 @@ const resolvers = {
         }
       }
 
-      return models.article.cache("all-articles-hp").findAll({
-        where,
-        limit: limit ? Number(limit) : 6,
-        order: [[sortArgArray[0], sortArgArray[2]]],
-      });
+      return models.article
+        .cache(`all-articles-hp-limit-${limit}-${offset}`)
+        .findAll({
+          where,
+          offset: offset ? Number(offset) : 0,
+          limit: limit ? Number(limit) : 6,
+          order: [[sortArgArray[0], sortArgArray[2]]],
+        });
     },
   },
   Mutation: {

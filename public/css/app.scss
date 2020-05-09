@@ -2450,7 +2450,7 @@ img.post-image {
   }
 }
 
-a.btn.btn-primary-inverted {
+.btn.btn-primary-inverted {
   background: transparent;
   color: #19034e;
   border-color: #19034e;
@@ -2674,4 +2674,15 @@ body.body-light main .content-wrap {
 
 body.body-light main .content-wrap.landing-content-wrap {
   background: #222 !important;
+}
+
+.btn-loadmore-wrap {
+    width: 100%;
+    display: inline-block;
+    margin-top: 15px;
+}
+
+.btn-loadmore-wrap .btn-loadmore {
+    max-width: 320px;
+    width: 100%;
 }

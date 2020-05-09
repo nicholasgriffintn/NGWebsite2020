@@ -4,19 +4,24 @@ import ArticleListItem from "./ArticleListItem";
 
 import queryString from "qs";
 
-let prevCount = 0;
-let currentCount = 0;
-let keywordTime = null;
-
 const ArticleList = (query) => {
-  const [dataState, setData] = useState({});
+  const [dataState, setData] = useState([]);
   const [loadingState, setLoading] = useState(false);
   const [errorState, setError] = useState(false);
   const [initialLoad, setInitialLoad] = useState(true);
+  const [currentCount, setCurrentCount] = useState(0);
+  const [prevCount, setPrevCount] = useState(0);
+  const [showLoadMore, setShowLoadMore] = useState(false);
 
-  useEffect(async () => {
+  const loadBlogPosts = async (resetCount, loadMore) => {
     try {
+      setShowLoadMore(false);
       setLoading(true);
+
+      if (resetCount) {
+        setCurrentCount(0);
+        setPrevCount(0);
+      }
 
       await fetch("/api/graphql", {
         method: "POST",
@@ -26,7 +31,7 @@ const ArticleList = (query) => {
         body: JSON.stringify({
           operationName: "GetArticles",
           query: `query GetArticles {
-            allArticles {
+            allArticles(offset: ${prevCount}) {
                 id
                 title
                 description
@@ -42,23 +47,59 @@ const ArticleList = (query) => {
           return response.json();
         })
         .then((responseAsJson) => {
-          setLoading(false);
+          if (responseAsJson && responseAsJson.data.allArticles) {
+            let allArticlesData = responseAsJson.data.allArticles;
 
-          setData(responseAsJson.data);
+            setCurrentCount(allArticlesData.length);
+
+            setPrevCount(prevCount + 6);
+
+            if (allArticlesData.length < 6) {
+              setShowLoadMore(false);
+            } else {
+              setShowLoadMore(true);
+            }
+
+            setLoading(false);
+
+            let newData = responseAsJson.data.allArticles;
+
+            if (loadMore) {
+              newData = [...dataState, ...responseAsJson.data.allArticles];
+            }
+
+            setData(newData);
+          } else {
+            console.error("no data while loading blog posts.");
+          }
         });
     } catch (e) {
       console.error("error while loading blog posts.");
       console.error(e);
     }
+  };
+
+  useEffect(async () => {
+    loadBlogPosts(true, false);
   }, []);
 
   return (
     <React.Fragment>
+      {console.log(dataState)}
       {dataState &&
-        dataState.allArticles &&
-        dataState.allArticles.map((article) => (
+        dataState.map((article) => (
           <ArticleListItem key={article.id} article={article} />
         ))}
+      {showLoadMore && (
+        <div className="btn-loadmore-wrap">
+          <button
+            onClick={() => loadBlogPosts(false, true)}
+            className="btn btn-primary-inverted btn-loadmore"
+          >
+            Load More Posts
+          </button>
+        </div>
+      )}
     </React.Fragment>
   );
 };

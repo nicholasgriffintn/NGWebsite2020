@@ -162,8 +162,6 @@ app.prepare().then(() => {
       position
     );
 
-    console.log(imageResized);
-
     if (imageResized && !imageResized.statusCode) {
       // Set the content-type of the response
       res.type(`image/${format || "png"}`);
@@ -367,8 +365,6 @@ app.prepare().then(() => {
           res.status(403).json({ error: "Token invalid" });
         } else {
           req.apicacheGroup = "content-api";
-
-          console.log(req.body);
 
           if (response.sub === "e885ab87-0a49-43d6-95cb-7ddc8d4e1149") {
             try {
