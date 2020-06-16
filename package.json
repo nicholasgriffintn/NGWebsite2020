@@ -40,7 +40,7 @@
     "apollo-link-http": "^1.5.16",
     "apollo-server": "^2.11.0",
     "apollo-server-express": "^2.11.0",
-    "apollo-server-micro": "^2.11.0",
+    "apollo-server-micro": "^2.14.2",
     "aws-sdk": "^2.673.0",
     "body-parser": "^1.19.0",
     "cognito-express": "^2.0.16",
