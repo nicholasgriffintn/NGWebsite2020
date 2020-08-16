@@ -1,5 +1,7 @@
 # Nicholas Griffin's personal website for 2020
 
+![Node.js CI](https://github.com/nicholasgriffintn/NGWebsite2020/workflows/Node.js%20CI/badge.svg)
+
 It's time for an upgrade.
 
 Zeit Now link (because I could): https://now.nicholasgriffin.dev/

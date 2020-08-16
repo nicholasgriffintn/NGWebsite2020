@@ -2,25 +2,32 @@
 import React from "react";
 
 import Page from "../components/Page";
+import ArticleList from "../components/ArticleList";
 
-const SignupPage = () => (
-  <Page displayHeader={true} title="This is a shite page">
+const SignupPage = ({ query }) => (
+  <Page displayHeader={true} title="This is a blog page">
     <div className="content-wrap">
       <div className="container-main">
         <div className="page-header-spacer"></div>
 
-        <h1 id="single-title" className="animated bounceInDown">
-          No blog anymore...
+        <h1
+          id="single-title"
+          className="animated bounceInDown title-center blog-title"
+        >
+          Blog
         </h1>
-        <h2>Sorry, I broke it.</h2>
-        <p>Maybe later?</p>
-        <div className="title-button-wrap">
-          <a
-            className="ui button white basic inverted"
-            href="https://nicholasgriffin.dev"
+        <div className="ui container blog-page-wrap">
+          <div id="BlogContentContainer" className="ui three stackable cards">
+            <ArticleList query={query} />
+          </div>
+          <button
+            id="blogLoadMoreButton"
+            className="ui button fluid"
+            data-start="0"
+            data-limit="3"
           >
-            Go back home
-          </a>
+            Load More
+          </button>
         </div>
       </div>
     </div>

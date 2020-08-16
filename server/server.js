@@ -19,6 +19,10 @@ const typeDefs = require("../graphql/schema");
 const resolvers = require("../graphql/resolvers");
 const models = require("../models");
 
+const multer = require("multer");
+const aws = require("aws-sdk");
+const fs = require("fs");
+
 const resize = require("./resize");
 
 const Redis = require("ioredis");
@@ -47,7 +51,7 @@ const cognitoExpress = new CognitoExpress({
 
 // Routes
 app.prepare().then(() => {
-  server.use(bodyParser.urlencoded({ extended: false }));
+  server.use(bodyParser.urlencoded({ extended: true }));
   server.use(bodyParser.json());
 
   server.use(bearerToken());
@@ -176,6 +180,94 @@ app.prepare().then(() => {
       res.send(imageResizedBase);
     }
   });
+
+  server.post(
+    `/api/admin/media`,
+    multer({ dest: "temp/", limits: { fieldSize: 8 * 1024 * 1024 } }).single(
+      "image"
+    ),
+    async function (req, res) {
+      if (req.token) {
+        cognitoExpress.validate(req.token, async function (err, response) {
+          if (err || !response) {
+            res.status(403).json({ error: "Token invalid" });
+          } else {
+            req.apicacheGroup = "content-api";
+
+            if (response.sub === "e885ab87-0a49-43d6-95cb-7ddc8d4e1149") {
+              try {
+                if (req.body && req.body.mediatype && req.body.title) {
+                  async function uploadTheFIle(req, res, cognitoResponse) {
+                    aws.config.setPromisesDependency();
+                    aws.config.update({
+                      accessKeyId: process.env.ACCESSKEYID,
+                      secretAccessKey: process.env.SECRETACCESSKEY,
+                      region: process.env.REGION,
+                    });
+                    const s3 = new aws.S3();
+
+                    const fileData = req.file;
+
+                    var params = {
+                      ACL: "public-read",
+                      Bucket: process.env.BUCKET_NAME,
+                      Body: fs.createReadStream(req.file.path),
+                      Key: `mediaUploads/${cognitoResponse.sub}/${req.file.originalname}`,
+                      ContentType: fileData.mimetype || "image/png",
+                    };
+
+                    s3.upload(params, async (err, data) => {
+                      if (err) {
+                        console.log(
+                          "Error occured while trying to upload to S3 bucket",
+                          err
+                        );
+                      }
+
+                      if (data) {
+                        fs.unlinkSync(req.file.path); // Empty temp folder
+
+                        const record = await models.media.create({
+                          mediatype: req.body.mediatype || "image",
+                          title: req.body.title || null,
+                          description: req.body.description || null,
+                          s3bucketname:
+                            data.Bucket || "cdn.nicholasgriffin.dev",
+                          s3key: data.key || data.Key || null,
+                          s3etag: data.ETag || null,
+                          s3location: data.Location || null,
+                          filename: fileData.filename || null,
+                          originalname: fileData.originalname || null,
+                          encoding: fileData.encoding || null,
+                          mimetype: fileData.mimetype || "image",
+                          size: fileData.size || req.body.size || null,
+                          width: fileData.width || req.body.width || null,
+                          height: fileData.height || req.body.height || null,
+                        });
+                        res.status(200).json({ record });
+                      }
+                    });
+                  }
+
+                  uploadTheFIle(req, res, response);
+                } else {
+                  console.log(req.body);
+                  console.log(req.file);
+                  res.status(500).json({ error: "Incorrect params" });
+                }
+              } catch (error) {
+                res.status(500).json({ error: error });
+              }
+            } else {
+              res.status(403).json({ error: "Not allowed" });
+            }
+          }
+        });
+      } else {
+        res.status(403).json({ error: "Token invalid" });
+      }
+    }
+  );
 
   server.get(`/api/have-i-been-pwned`, limiter, async function (req, res) {
     req.apicacheGroup = "haveibeenpwned-api";

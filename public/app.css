@@ -1,6 +1,7 @@
-body, html {
-    height: 100%;
-    width: 100%;
+body,
+html {
+  height: 100%;
+  width: 100%;
 }
 
 * {
@@ -2199,4 +2200,15 @@ div#nowPlayingOverlay {
 
 div#customSpotifyRightElementSongContainer {
   border: 1px solid #ddd;
+}
+
+.blog-title {
+  width: 100%;
+  display: inline-block;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.title-center {
+  text-align: center;
 }

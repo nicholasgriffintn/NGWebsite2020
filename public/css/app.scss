@@ -2677,12 +2677,27 @@ body.body-light main .content-wrap.landing-content-wrap {
 }
 
 .btn-loadmore-wrap {
-    width: 100%;
-    display: inline-block;
-    margin-top: 15px;
+  width: 100%;
+  display: inline-block;
+  margin-top: 15px;
 }
 
 .btn-loadmore-wrap .btn-loadmore {
-    max-width: 320px;
-    width: 100%;
+  max-width: 320px;
+  width: 100%;
+}
+
+.blog-title {
+  width: 100%;
+  display: inline-block;
+  margin-bottom: 2rem !important;
+  margin-top: 2rem;
+}
+
+.title-center {
+  text-align: center;
+}
+
+.blog-page-wrap {
+  text-align: center;
 }
