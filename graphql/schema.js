@@ -17,6 +17,27 @@ const typeDefs = gql`
     updatedAt: DateTime
   }
 
+  type media {
+    id: ID
+    title: String
+    description: String
+    mediatype: String
+    s3bucketname: String
+    s3key: String
+    s3location: String
+    s3etag: String
+    filename: String
+    originalname: String
+    mimetype: String
+    encoding: String
+    size: String
+    width: String
+    height: String
+    length: String
+    createdAt: DateTime
+    updatedAt: DateTime
+  }
+
   type Query {
     allArticles(
       limit: Int
@@ -27,6 +48,22 @@ const typeDefs = gql`
     ): [article!]!
 
     article(id: ID): article
+
+    allMedia(
+      limit: Int
+      offset: Int
+      title: String
+      search: String
+      mediatype: String
+      s3bucketname: String
+      s3key: String
+      filename: String
+      originalname: String
+      mimetype: String
+      links: String
+    ): [media!]!
+
+    mediaPK(id: ID): media
   }
 
   type Mutation {
