@@ -68,6 +68,14 @@ function Footer() {
             >
               Github
             </a>
+            . And the{" "}
+            <a
+              href="https://nicholasgriffin.dev/api/graphql"
+              title="Personal Site GraphQL Playground"
+              target="_blank"
+            >
+              GraphQL API here
+            </a>
           </span>
         </div>
       </div>
