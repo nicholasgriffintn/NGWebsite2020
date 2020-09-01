@@ -49,6 +49,9 @@ const cognitoExpress = new CognitoExpress({
   tokenUse: "id",
 });
 
+const rss = require("rss");
+const dayjs = require("dayjs");
+
 // Routes
 app.prepare().then(() => {
   server.use(bodyParser.urlencoded({ extended: true }));
@@ -83,6 +86,46 @@ app.prepare().then(() => {
   });
 
   // API Routes
+  server.get("/feed", limiter, async function (req, res) {
+    // Create rss prototype object and set some base values
+    var feed = new rss({
+      title: "Nicholas Griffin",
+      description: "My personal website",
+      feed_url: "https://nicholasgriffin.dev" + req.url,
+      site_url: "https://nicholasgriffin.dev",
+      image_url: "https://nicholasgriffin.dev/icon.png",
+      author: "Nicholas Griffin",
+    });
+
+    let where = {};
+
+    const rssFeedArticles = await models.article
+      .cache(`all-articles-rss-feed`)
+      .findAll({
+        where,
+        offset: 0,
+        limit: 6,
+        order: [["createdAt", "desc"]],
+      });
+
+    if (rssFeedArticles) {
+      rssFeedArticles.forEach(function (post) {
+        feed.item({
+          title: post.title,
+          description: post.description,
+          url: "http://nicholas.griffin.dev/post-single/" + post.id,
+          author: "Nicholas Griffin",
+          date: dayjs(post.createdAt).format("dddd, MMMM D YYYY h:mm a"),
+        });
+      });
+
+      res.type("rss");
+      res.send(feed.xml());
+    } else {
+      res.send(rssFeedArticles);
+    }
+  });
+
   server.get("/api/spotify", limiter, async function (req, res) {
     redis.get("spotify-data", function (err, result) {
       var request = require("request");
