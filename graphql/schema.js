@@ -1,6 +1,6 @@
 // src/schema.js
 
-const { gql } = require("apollo-server");
+const { gql } = require('apollo-server');
 
 const typeDefs = gql`
   scalar DateTime
@@ -38,6 +38,39 @@ const typeDefs = gql`
     updatedAt: DateTime
   }
 
+  type magnetinfo {
+    xt: String
+    dn: String
+    tr: String
+    infoHash: String
+    name: String
+    announce: String
+  }
+
+  type surgethumbs {
+    name: String
+    url: String
+  }
+
+  type userInfo {
+    name: String
+    avatar: String
+  }
+
+  type surge {
+    id: ID
+    title: String
+    description: String
+    magnet: String
+    magnetinfo: [magnetinfo]
+    thumbnails: [surgethumbs]
+    userInfo: [userInfo]
+    tags: String
+    status: String
+    createdAt: DateTime
+    updatedAt: DateTime
+  }
+
   type Query {
     allArticles(
       limit: Int
@@ -64,6 +97,16 @@ const typeDefs = gql`
     ): [media!]!
 
     mediaPK(id: ID): media
+
+    allSurges(
+      limit: Int
+      offset: Int
+      search: String
+      status: String
+      tags: String
+    ): [surge!]!
+
+    surgePK(id: ID): surge
   }
 
   type Mutation {

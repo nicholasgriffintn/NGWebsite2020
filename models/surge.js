@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const article = sequelize.define(
-    'article',
+  const surge = sequelize.define(
+    'surge',
     {
       id: {
         allowNull: false,
@@ -13,33 +13,38 @@ module.exports = (sequelize, DataTypes) => {
           return randomId;
         },
       },
-      title: {
+      magnet: {
         allowNull: false,
         type: DataTypes.TEXT,
       },
-      published: {
-        type: DataTypes.BOOLEAN,
-        allowNull: true,
+      magnetinfo: {
+        allowNull: false,
+        type: DataTypes.JSONB,
+      },
+      title: {
+        allowNull: false,
+        type: DataTypes.TEXT,
       },
       description: {
         allowNull: false,
         type: DataTypes.TEXT,
       },
+      thumbnails: {
+        allowNull: false,
+        type: DataTypes.JSONB,
+      },
+      userInfo: {
+        allowNull: false,
+        type: DataTypes.JSONB,
+      },
       tags: {
         allowNull: false,
-        type: DataTypes.TEXT,
+        type: DataTypes.JSONB,
       },
-      thumbnail: {
+      status: {
         allowNull: false,
         type: DataTypes.TEXT,
-      },
-      header: {
-        allowNull: false,
-        type: DataTypes.TEXT,
-      },
-      content: {
-        allowNull: false,
-        type: DataTypes.TEXT,
+        defaultValue: 'Public',
       },
     },
     {
@@ -47,8 +52,8 @@ module.exports = (sequelize, DataTypes) => {
       paranoid: true,
     }
   );
-  article.associate = function (models) {
+  surge.associate = function (models) {
     // associations can be defined here
   };
-  return article;
+  return surge;
 };

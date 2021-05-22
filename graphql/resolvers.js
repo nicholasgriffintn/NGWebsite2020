@@ -1,6 +1,6 @@
-const Sequelize = require("sequelize");
-const { Op } = require("sequelize");
-const { GraphQLDateTime } = require("graphql-iso-date");
+const Sequelize = require('sequelize');
+const { Op } = require('sequelize');
+const { GraphQLDateTime } = require('graphql-iso-date');
 
 const resolvers = {
   DateTime: GraphQLDateTime,
@@ -22,33 +22,33 @@ const resolvers = {
           offset = args.offset;
         }
 
-        if (args.title && args.title !== "") {
+        if (args.title && args.title !== '') {
           where = {
             ...where,
-            ["title"]: args.title,
+            ['title']: args.title,
           };
         }
 
         // Keyword search
-        if (args.search && args.search !== "") {
+        if (args.search && args.search !== '') {
           where = {
             ...where,
             [Op.or]: [
-              { title: { [Op.like]: "%" + args.search + "%" } },
-              { content: { [Op.like]: "%" + args.search + "%" } },
+              { title: { [Op.like]: '%' + args.search + '%' } },
+              { content: { [Op.like]: '%' + args.search + '%' } },
             ],
           };
         }
       }
 
       // Transform the sort
-      let sortArg = args.sort || "createdAt desc";
-      sortArg = sortArg.split(" ");
+      let sortArg = args.sort || 'createdAt desc';
+      sortArg = sortArg.split(' ');
       var sortArgArray = new Array();
       for (var i = 0; i < sortArg.length; i++) {
         sortArgArray.push(sortArg[i]);
         if (i != sortArg.length - 1) {
-          sortArgArray.push(" ");
+          sortArgArray.push(' ');
         }
       }
 
@@ -60,9 +60,6 @@ const resolvers = {
           limit: limit ? Number(limit) : 6,
           order: [[sortArgArray[0], sortArgArray[2]]],
         });
-    },
-    async mediaPK(root, { id }, { models }) {
-      return models.media.cache().findByPk(id);
     },
     async allMedia(root, args, { models }) {
       let where = {};
@@ -78,82 +75,82 @@ const resolvers = {
           offset = args.offset;
         }
 
-        if (args.mediatype && args.mediatype !== "") {
+        if (args.mediatype && args.mediatype !== '') {
           where = {
             ...where,
-            ["mediatype"]: args.mediatype,
+            ['mediatype']: args.mediatype,
           };
         }
 
-        if (args.title && args.title !== "") {
+        if (args.title && args.title !== '') {
           where = {
             ...where,
-            ["title"]: args.title,
+            ['title']: args.title,
           };
         }
 
         // Keyword search
-        if (args.search && args.search !== "") {
+        if (args.search && args.search !== '') {
           where = {
             ...where,
             [Op.or]: [
-              { title: { [Op.like]: "%" + args.search + "%" } },
-              { description: { [Op.like]: "%" + args.search + "%" } },
+              { title: { [Op.like]: '%' + args.search + '%' } },
+              { description: { [Op.like]: '%' + args.search + '%' } },
             ],
           };
         }
 
-        if (args.s3bucketname && args.s3bucketname !== "") {
+        if (args.s3bucketname && args.s3bucketname !== '') {
           where = {
             ...where,
-            ["s3bucketname"]: args.s3bucketname,
+            ['s3bucketname']: args.s3bucketname,
           };
         }
 
-        if (args.s3key && args.s3key !== "") {
+        if (args.s3key && args.s3key !== '') {
           where = {
             ...where,
-            ["s3key"]: args.s3key,
+            ['s3key']: args.s3key,
           };
         }
 
-        if (args.filename && args.filename !== "") {
+        if (args.filename && args.filename !== '') {
           where = {
             ...where,
-            ["filename"]: args.filename,
+            ['filename']: args.filename,
           };
         }
 
-        if (args.originalname && args.originalname !== "") {
+        if (args.originalname && args.originalname !== '') {
           where = {
             ...where,
-            ["originalname"]: args.originalname,
+            ['originalname']: args.originalname,
           };
         }
 
-        if (args.mimetype && args.mimetype !== "") {
+        if (args.mimetype && args.mimetype !== '') {
           where = {
             ...where,
-            ["mimetype"]: args.mimetype,
+            ['mimetype']: args.mimetype,
           };
         }
 
-        if (args.links && args.links !== "") {
+        if (args.links && args.links !== '') {
           where = {
             ...where,
-            ["links"]: args.links,
+            ['links']: args.links,
           };
         }
       }
 
       // Transform the sort
-      let sortArg = args.sort || "createdAt desc";
-      sortArg = sortArg.split(" ");
+      let sortArg = args.sort || 'createdAt desc';
+      sortArg = sortArg.split(' ');
       var sortArgArray = new Array();
       for (var i = 0; i < sortArg.length; i++) {
         sortArgArray.push(sortArg[i]);
         if (i != sortArg.length - 1) {
-          sortArgArray.push(" ");
+          sortArgArray.push(' ');
         }
       }
 
@@ -163,6 +160,70 @@ const resolvers = {
         limit: limit ? Number(limit) : 6,
         order: [[sortArgArray[0], sortArgArray[2]]],
       });
+    },
+    async mediaPK(root, { id }, { models }) {
+      return models.media.cache().findByPk(id);
+    },
+    async allSurges(root, args, { models }) {
+      let where = {};
+      let limit = 6;
+      let offset = 0;
+
+      // Always ensure that there is a filter
+      if (args) {
+        if (args.limit) {
+          limit = args.limit;
+        }
+        if (args.offset) {
+          offset = args.offset;
+        }
+
+        // Keyword search
+        if (args.search && args.search !== '') {
+          where = {
+            ...where,
+            [Op.or]: [
+              { title: { [Op.like]: '%' + args.search + '%' } },
+              { description: { [Op.like]: '%' + args.search + '%' } },
+            ],
+          };
+        }
+
+        if (args.status && args.status !== '') {
+          where = {
+            ...where,
+            ['status']: args.status,
+          };
+        }
+
+        if (args.tags && args.tags !== '') {
+          where = {
+            ...where,
+            ['tags']: { [Op.In]: args.tags },
+          };
+        }
+      }
+
+      // Transform the sort
+      let sortArg = args.sort || 'createdAt desc';
+      sortArg = sortArg.split(' ');
+      var sortArgArray = new Array();
+      for (var i = 0; i < sortArg.length; i++) {
+        sortArgArray.push(sortArg[i]);
+        if (i != sortArg.length - 1) {
+          sortArgArray.push(' ');
+        }
+      }
+
+      return models.surge.cache(`all-surges-limit-${limit}-${offset}`).findAll({
+        where,
+        offset: offset ? Number(offset) : 0,
+        limit: limit ? Number(limit) : 6,
+        order: [[sortArgArray[0], sortArgArray[2]]],
+      });
+    },
+    async surgePK(root, { id }, { models }) {
+      return models.surge.cache().findByPk(id);
     },
   },
   Mutation: {

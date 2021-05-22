@@ -1,12 +1,17 @@
-"use strict";
+'use strict';
 module.exports = (sequelize, DataTypes) => {
   const media = sequelize.define(
-    "media",
+    'media',
     {
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
+        unique: true,
+        defaultValue: () => {
+          const randomId = nanoid(15);
+          return randomId;
+        },
       },
       mediatype: {
         allowNull: true,
@@ -76,15 +81,15 @@ module.exports = (sequelize, DataTypes) => {
   );
   media.associate = function (models) {
     models.media.hasMany(models.article, {
-      as: "links",
+      as: 'links',
     });
 
     models.media.belongsTo(models.user, {
-      as: "createdBy",
+      as: 'createdBy',
     });
 
     models.media.belongsTo(models.user, {
-      as: "updatedBy",
+      as: 'updatedBy',
     });
   };
   return media;
