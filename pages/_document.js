@@ -1,16 +1,16 @@
-import React from "react";
-import Document, { Head, Main, NextScript } from "next/document";
+import React from 'react';
+import Document, { Head, Main, NextScript, Html } from 'next/document';
 
-import { config } from "../config/config";
+import { config } from '../config/config';
 
-import { useDarkMode } from "../hooks";
+import { useDarkMode } from '../hooks';
 
 function DocumentBody() {
-  const [colorMode] = useDarkMode("light");
+  const [colorMode] = useDarkMode('light');
   // You can use hooks here
   return (
     <body
-      className={colorMode && colorMode === "dark" ? "body-dark" : "body-light"}
+      className={colorMode && colorMode === 'dark' ? 'body-dark' : 'body-light'}
     >
       <Main />
       <NextScript />
@@ -22,7 +22,7 @@ export default class MyDocument extends Document {
   // this.props (Server only): __NEXT_DATA__, ampPath, assetPrefix, bodyTags, canonicalBase, dangerousAsPath, dataOnly, devFiles, dynamicImports, files, hasCssMode, head, headTags, html, htmlProps, hybridAmp, inAmpMode, isDevelopment, polyfillFiles, staticMarkup, styles
   render() {
     return (
-      <html lang={config.locale.split("_")[0]}>
+      <Html lang={config.locale.split('_')[0]}>
         <Head>
           {config.googleAnalyticsId ? (
             <>
@@ -39,7 +39,7 @@ export default class MyDocument extends Document {
           ) : null}
         </Head>
         <DocumentBody />
-      </html>
+      </Html>
     );
   }
 }

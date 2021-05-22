@@ -1,21 +1,21 @@
-"use strict";
+'use strict';
 
-const fs = require("fs");
-const path = require("path");
-const Sequelize = require("sequelize");
+const fs = require('fs');
+const path = require('path');
+const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
-const { config } = require("../config/config");
+const { config } = require('../config/config');
 const db = {};
 
-const Redis = require("ioredis");
+const Redis = require('ioredis');
 const redis = new Redis(config.REDIS_PORT, config.REDIS_HOST);
 
-const sequelizeCache = require("sequelize-transparent-cache");
-const RedisAdaptor = require("sequelize-transparent-cache-ioredis");
+const sequelizeCache = require('sequelize-transparent-cache');
+const RedisAdaptor = require('sequelize-transparent-cache-ioredis');
 
 const redisAdaptor = new RedisAdaptor({
   client: redis,
-  namespace: "model",
+  namespace: 'model',
   lifetime: 60 * 60,
 });
 const { withCache } = sequelizeCache(redisAdaptor);
@@ -31,12 +31,15 @@ sequelize = new Sequelize(
 fs.readdirSync(__dirname)
   .filter((file) => {
     return (
-      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
+      file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
     );
   })
   .forEach((file) => {
-    // const model = require(path.join(__dirname, file));
-    const model = withCache(sequelize["import"](path.join(__dirname, file)));
+    const model = withCache(
+      require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes)
+    );
+
+    // const model = withCache(sequelize["import"](path.join(__dirname, file)));
     //const model = sequelize["import"](path.join(__dirname, file));
     db[model.name] = model;
   });
