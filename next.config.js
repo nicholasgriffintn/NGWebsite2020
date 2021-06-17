@@ -1,27 +1,27 @@
-const withCSS = require("@zeit/next-css");
-const withSass = require("@zeit/next-sass");
-const withOffline = require("next-offline");
-const isProd = process.env.NODE_ENV === "production";
+const withCSS = require('@zeit/next-css');
+const withSass = require('@zeit/next-sass');
+const withOffline = require('next-offline');
+const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = withSass(
   withCSS(
     withOffline({
-      mode: "universal",
-      loading: { color: "#19034e" },
+      mode: 'universal',
+      loading: { color: '#19034e' },
 
       plugins: [],
 
-      modules: ["@nuxtjs/apollo"],
+      modules: ['@nuxtjs/apollo'],
 
       apollo: {
         cookieAttributes: {
           expires: 7,
         },
         includeNodeModules: true,
-        authenticationType: "Bearer",
-        errorHandler: "~/plugins/apollo-error-handler.js",
+        authenticationType: 'Bearer',
+        errorHandler: '~/plugins/apollo-error-handler.js',
         clientConfigs: {
-          default: "~/apollo/clientConfig.js",
+          default: '~/apollo/clientConfig.js',
         },
       },
 
@@ -29,16 +29,16 @@ module.exports = withSass(
         runtimeCaching: [
           {
             urlPattern: /.png$/,
-            handler: "CacheFirst",
+            handler: 'CacheFirst',
           },
           {
             urlPattern: /api/,
-            handler: "NetworkFirst",
+            handler: 'NetworkFirst',
             options: {
               cacheableResponse: {
                 statuses: [0, 200],
                 headers: {
-                  "x-test": "true",
+                  'x-test': 'true',
                 },
               },
             },
@@ -50,7 +50,7 @@ module.exports = withSass(
         // Fixes npm packages that depend on `fs` module
         if (!isServer) {
           config.node = {
-            fs: "empty",
+            fs: 'empty',
           };
         }
 

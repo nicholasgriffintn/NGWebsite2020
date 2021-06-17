@@ -1,12 +1,14 @@
-import Page from "../../components/Page";
+import Page from '../../components/Page';
 // import JobDetails from "../../components/jobs/JobDetails";
 
-import { config } from "../../config/config";
+import { config } from '../../config/config';
 
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 
-const ReactMarkdown = require("react-markdown");
-const CodeBlock = require("../../components/blocks/CodeBlock");
+const ReactMarkdown = require('react-markdown');
+const rehypeRaw = require('rehype-raw');
+const rehypeSanitize = require('rehype-sanitize');
+const CodeBlock = require('../../components/blocks/CodeBlock');
 
 const JobPage = (props) => {
   return (
@@ -14,7 +16,7 @@ const JobPage = (props) => {
       <Page
         displayHeader={true}
         loadDrac={true}
-        title={props.loading ? "Loading..." : props.data.article.title}
+        title={props.loading ? 'Loading...' : props.data.article.title}
         path={props.asPath}
       >
         {props.loading ? (
@@ -53,9 +55,9 @@ const JobPage = (props) => {
                       {props.data.article.description}
                     </h1>
                     <small>
-                      Posted{" "}
+                      Posted{' '}
                       {dayjs(props.data.article.createdAt).format(
-                        "dddd, MMMM D YYYY h:mm a"
+                        'dddd, MMMM D YYYY h:mm a'
                       )}
                     </small>
                     <br></br>
@@ -66,7 +68,7 @@ const JobPage = (props) => {
                           <>
                             <>Updated </>
                             {dayjs(props.data.article.updatedAt).format(
-                              "dddd, MMMM D YYYY h:mm a"
+                              'dddd, MMMM D YYYY h:mm a'
                             )}
                           </>
                         )}
@@ -77,22 +79,22 @@ const JobPage = (props) => {
                 <div className="post-content-wrap">
                   <div>
                     <ReactMarkdown
-                      escapeHtml={false}
-                      linkTarget={"_blank"}
-                      renderers={{ code: CodeBlock }}
-                      source={props.data.article.content}
+                      linkTarget={'_blank'}
+                      components={{ code: CodeBlock }}
+                      rehypePlugins={[rehypeRaw, rehypeSanitize]}
+                      children={props.data.article.content}
                     />
                   </div>
                 </div>
               </div>
 
-              {props.query && props.query.debug === "true" && (
+              {props.query && props.query.debug === 'true' && (
                 <div className="page-dev-data">
                   {data && data.job && (
                     <>
                       <h2>Job Data</h2>
                       <div>
-                        Current job data:{" "}
+                        Current job data:{' '}
                         <pre>{JSON.stringify(props.data.article)}</pre>
                       </div>
                     </>
@@ -118,13 +120,13 @@ JobPage.getInitialProps = async (context) => {
   let data = {};
 
   if (context.query && context.query.article) {
-    return fetch(config.websiteUrl + "/api/graphql", {
-      method: "POST",
+    return fetch(config.websiteUrl + '/api/graphql', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        operationName: "GetArticle",
+        operationName: 'GetArticle',
         variables: { id: context.query.article },
         query: `query GetArticle {
         article(id: "${context.query.article}") {
@@ -152,18 +154,18 @@ JobPage.getInitialProps = async (context) => {
         return { data: responseAsJson.data };
       })
       .catch((e) => {
-        console.error("error generating server side code");
+        console.error('error generating server side code');
         console.error(e);
-        return { data: { message: "No article id found" } };
+        return { data: { message: 'No article id found' } };
       });
   } else {
-    console.error("no query");
+    console.error('no query');
 
     error = {
-      message: "No article id found",
+      message: 'No article id found',
     };
     loading = false;
-    return { data: { message: "No article id found" } };
+    return { data: { message: 'No article id found' } };
   }
 };
 
