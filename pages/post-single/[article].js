@@ -26,19 +26,19 @@ const JobPage = (props) => {
             <div className="header-single-image-full">
               <picture>
                 <source
-                  srcSet={`/api/images/resize?image=posts/${props.data.article.id}/header.png&width=639&height=1000&position=left%20top, /api/images/resize?image=posts/${props.data.article.id}/header.png&width=1278&height=1000&position=left%20top 2x`}
+                  srcSet={`${config.appUrl}/api/images/resize?image=posts/${props.data.article.id}/header.png&width=639&height=1000&position=left%20top, /api/images/resize?image=posts/${props.data.article.id}/header.png&width=1278&height=1000&position=left%20top 2x`}
                   media="(max-width: 639px)"
                 />
                 <source
-                  srcSet={`/api/images/resize?image=posts/${props.data.article.id}/header.png&width=1023&height=500, /api/images/resize?image=posts/${props.data.article.id}/header.png&width=1680&height=500 2x`}
+                  srcSet={`${config.appUrl}/api/images/resize?image=posts/${props.data.article.id}/header.png&width=1023&height=500, /api/images/resize?image=posts/${props.data.article.id}/header.png&width=1680&height=500 2x`}
                   media="(min-width: 640px) and (max-width: 1023px)"
                 />
                 <source
-                  srcSet={`/api/images/resize?image=posts/${props.data.article.id}/header.png&width=1680&height=500`}
+                  srcSet={`${config.appUrl}/api/images/resize?image=posts/${props.data.article.id}/header.png&width=1680&height=500`}
                   media="(min-width: 1024px)"
                 />
                 <img
-                  src={`/api/images/resize?image=posts/${props.data.article.id}/header.png&width=1680&height=500`}
+                  src={`${config.appUrl}/api/images/resize?image=posts/${props.data.article.id}/header.png&width=1680&height=500`}
                   loading="lazy"
                   alt={props.data.article.title}
                 />
@@ -120,7 +120,7 @@ JobPage.getInitialProps = async (context) => {
   let data = {};
 
   if (context.query && context.query.article) {
-    return fetch(config.websiteUrl + '/api/graphql', {
+    return fetch(config.appUrl + '/api/graphql', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
