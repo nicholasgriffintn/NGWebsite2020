@@ -52,7 +52,7 @@ const completeConfig = {
 
   production: {
     websiteUrl: `https://nicholasgriffin.dev`,
-    appUrl: `https://nicholasgriffin.dev/`,
+    appUrl: `https://api.nicholasgriffin.dev/`,
     googleAnalyticsId: "GTM-NK46QBJ",
     websocketUrl: process.env.WEBSITE_URL || "ws://nicholasgriffin.dev",
   },
