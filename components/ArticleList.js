@@ -23,7 +23,7 @@ const ArticleList = (query) => {
         setPrevCount(0);
       }
 
-      await fetch("/api/graphql", {
+      await fetch(`${config.appUrl}/api/graphql`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -85,7 +85,6 @@ const ArticleList = (query) => {
 
   return (
     <React.Fragment>
-      {console.log(dataState)}
       {dataState &&
         dataState.map((article) => (
           <ArticleListItem key={article.id} article={article} />
