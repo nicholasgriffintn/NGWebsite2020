@@ -12,7 +12,7 @@ const completeConfig = {
     appSlug,
     websocketUrl: process.env.WEBSITE_URL || "ws://nicholasgriffin.dev",
     websiteUrl: process.env.WEBSITE_URL || "https://nicholasgriffin.dev",
-    appUrl: process.env.APP_URL || "https://nicholasgriffin.dev/",
+    appUrl: process.env.APP_URL || "https://api.nicholasgriffin.dev/",
     appName: manifest.name,
     appTagline: "Web Developer, Blogger and Technology Enthusiast",
     appDescription: packageJson.description,
