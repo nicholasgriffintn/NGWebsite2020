@@ -4,6 +4,8 @@ import ArticleListItem from "./ArticleListItem";
 
 import queryString from "qs";
 
+import { config } from '../../config/config';
+
 const ArticleList = (query) => {
   const [dataState, setData] = useState([]);
   const [loadingState, setLoading] = useState(false);
