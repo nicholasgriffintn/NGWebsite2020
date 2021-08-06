@@ -1,6 +1,7 @@
 # Nicholas Griffin's personal website for 2020
 
 ![Node.js CI](https://github.com/nicholasgriffintn/NGWebsite2020/workflows/Node.js%20CI/badge.svg)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8772c3ba-6fef-4b90-9d57-5712b69f50a7/deploy-status)](https://app.netlify.com/sites/ng-personal-site/deploys)
 
 It's time for an upgrade.
 
