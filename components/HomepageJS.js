@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import Typed from "typed.js";
 
+import { config } from '../config/config';
+
 function HomepageJS() {
   useEffect(() => {
     function fadeOut(el) {
@@ -297,7 +299,7 @@ function HomepageJS() {
       };
 
       // Set the request URL for Last.fm
-      var github_request_urls = "/api/github";
+      var github_request_urls = config.appUrl + "/api/github";
 
       xhrGithubRepos.open("GET", github_request_urls);
       xhrGithubRepos.send();
@@ -338,7 +340,7 @@ function HomepageJS() {
 
       // Set the request URL for Last.fm
       var lastfm_request_url =
-        "/api/spotify?timestamp=" + Math.round(new Date().getTime() / 1000);
+        config.appUrl + "/api/spotify?timestamp=" + Math.round(new Date().getTime() / 1000);
 
       xhrLastFM.open("GET", lastfm_request_url);
       xhrLastFM.send();
