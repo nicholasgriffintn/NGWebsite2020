@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import { config } from '../config/config';
+
 function Footer() {
   useEffect(() => {
     window.Promise ||
@@ -70,7 +72,7 @@ function Footer() {
             </a>
             . And the{" "}
             <a
-              href="https://nicholasgriffin.dev/api/graphql"
+              href={`${config.appUrl}/api/graphql`}
               title="Personal Site GraphQL Playground"
               target="_blank"
             >
