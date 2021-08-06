@@ -2,6 +2,8 @@ import React from "react";
 
 import dayjs from "dayjs";
 
+import { config } from '../../config/config';
+
 const ArticleListItem = ({ article, index, inProgress = false }) => {
   return (
     <article
@@ -10,7 +12,7 @@ const ArticleListItem = ({ article, index, inProgress = false }) => {
       <div className="image">
         <img
           loading="lazy"
-          src={`/api/images/resize?image=posts/${article.id}/thumbnail.png&width=400&height=200`}
+          src={`${config.appUrl}/api/images/resize?image=posts/${article.id}/thumbnail.png&width=400&height=200`}
           alt={article.title}
           className="lazy loaded"
         />
