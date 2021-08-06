@@ -2,7 +2,7 @@ import React from "react";
 
 import dayjs from "dayjs";
 
-import { config } from '../../config/config';
+import { config } from '../config/config';
 
 const ArticleListItem = ({ article, index, inProgress = false }) => {
   return (
