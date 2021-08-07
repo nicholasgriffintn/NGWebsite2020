@@ -12,7 +12,7 @@ const completeConfig = {
     appSlug,
     websocketUrl: process.env.WEBSITE_URL || "ws://nicholasgriffin.dev",
     websiteUrl: process.env.WEBSITE_URL || "https://nicholasgriffin.dev",
-    appUrl: process.env.APP_URL || "https://api.nicholasgriffin.dev/",
+    appUrl: process.env.APP_URL || "https://api.nicholasgriffin.dev",
     appName: manifest.name,
     appTagline: "Web Developer, Blogger and Technology Enthusiast",
     appDescription: packageJson.description,
@@ -45,14 +45,14 @@ const completeConfig = {
 
   development: {
     websiteUrl: `http://localhost:${serverPort}`,
-    appUrl: `http://localhost:${serverPort}/`,
+    appUrl: `http://localhost:${serverPort}`,
     googleAnalyticsId: null,
     websocketUrl: process.env.WEBSITE_URL || "ws://localhost:${serverPort}",
   },
 
   production: {
     websiteUrl: `https://nicholasgriffin.dev`,
-    appUrl: `https://api.nicholasgriffin.dev/`,
+    appUrl: `https://api.nicholasgriffin.dev`,
     googleAnalyticsId: "GTM-NK46QBJ",
     websocketUrl: process.env.WEBSITE_URL || "ws://nicholasgriffin.dev",
   },
