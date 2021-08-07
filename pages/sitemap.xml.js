@@ -12,8 +12,8 @@ const Sitemap = () => {
       {pages.map((path, index) => (
         <url key={index}>
           <loc>
-            {config.appUrl}
-            {path.substr(1)}
+            {config.websiteUrl}
+            /{path.substr(1)}
           </loc>
           <lastmod>{getDate()}</lastmod>
         </url>
