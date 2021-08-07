@@ -16,7 +16,7 @@ const JobPage = (props) => {
       <Page
         displayHeader={true}
         loadDrac={true}
-        title={props.loading ? 'Loading...' : props.data.article.title}
+        title={props.loading ? 'Loading...' : props.data && props.data.article ? props.data.article.title : ""}
         path={props.asPath}
       >
         {props.loading ? (
