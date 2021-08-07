@@ -5,7 +5,7 @@ const robotsTxt = `# robotstxt.org
 
 User-agent: *
 
-Sitemap: ${config.appUrl}sitemap.xml`;
+Sitemap: ${config.websiteUrl}/sitemap.xml`;
 
 export default class Sitemap extends React.Component {
   static getInitialProps({ res }) {
