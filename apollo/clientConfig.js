@@ -4,7 +4,7 @@ import { config } from "../../config/config";
 export default function(context) {
   return {
     httpLinkOptions: {
-      uri: config.websiteUrl + config.graphqlPath,
+      uri: config.appUrl + config.graphqlPath,
       credentials: "same-origin"
     },
     cache: new InMemoryCache(),

@@ -176,7 +176,7 @@ Dashboard.getInitialProps = async (context) => {
   let postData = {};
 
   if (context.query && context.query.article) {
-    return fetch(config.websiteUrl + "/api/graphql", {
+    return fetch(config.appUrl + "/api/graphql", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

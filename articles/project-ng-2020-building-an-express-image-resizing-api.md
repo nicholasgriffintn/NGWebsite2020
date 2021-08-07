@@ -86,15 +86,15 @@ You'll notice that the image variable is adding the folder location to the image
 
 When live we can request an image like this:
 
-`https://nicholasgriffin.dev/api/images/resize?image=posts/project-ng-2020-securing-my-website-with-aws-cognito/thumbnail.png&width=400&height=200`
+`https://api.nicholasgriffin.dev/api/images/resize?image=posts/project-ng-2020-securing-my-website-with-aws-cognito/thumbnail.png&width=400&height=200`
 
 Here's an example of one with width 400 and height 200:
 
-![](https://nicholasgriffin.dev/api/images/resize?image=posts/project-ng-2020-securing-my-website-with-aws-cognito/thumbnail.png&width=400&height=200)
+![](https://api.nicholasgriffin.dev/api/images/resize?image=posts/project-ng-2020-securing-my-website-with-aws-cognito/thumbnail.png&width=400&height=200)
 
 And here's another that's been set to 80x80
 
-![](https://nicholasgriffin.dev/api/images/resize?image=posts/project-ng-2020-securing-my-website-with-aws-cognito/thumbnail.png&width=80&height=80)
+![](https://api.nicholasgriffin.dev/api/images/resize?image=posts/project-ng-2020-securing-my-website-with-aws-cognito/thumbnail.png&width=80&height=80)
 
 Yes, it really is that simple and this could save you a ton of money that you would otherwise have to spend on a service like Imgix, granted without the crop and editing features for now, we'll get there.
 

@@ -10,7 +10,7 @@ const completeConfig = {
   default: {
     serverPort,
     appSlug,
-    websocketUrl: process.env.WEBSITE_URL || "ws://nicholasgriffin.dev",
+    websocketUrl: process.env.WEBSITE_URL || "ws://api.nicholasgriffin.dev",
     websiteUrl: process.env.WEBSITE_URL || "https://nicholasgriffin.dev",
     appUrl: process.env.APP_URL || "https://api.nicholasgriffin.dev",
     appName: manifest.name,
@@ -54,7 +54,7 @@ const completeConfig = {
     websiteUrl: `https://nicholasgriffin.dev`,
     appUrl: `https://api.nicholasgriffin.dev`,
     googleAnalyticsId: "GTM-NK46QBJ",
-    websocketUrl: process.env.WEBSITE_URL || "ws://nicholasgriffin.dev",
+    websocketUrl: process.env.WEBSITE_URL || "ws://api.nicholasgriffin.dev",
   },
 };
 
