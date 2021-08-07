@@ -1,5 +1,5 @@
-import React from "react";
-import { config } from "../config/config";
+import React from 'react';
+import { config } from '../config/config';
 
 const robotsTxt = `# robotstxt.org
 
@@ -9,7 +9,7 @@ Sitemap: ${config.websiteUrl}/sitemap.xml`;
 
 export default class Sitemap extends React.Component {
   static getInitialProps({ res }) {
-    res.setHeader("Content-Type", "text/plain");
+    res.setHeader('Content-Type', 'text/plain');
     res.write(robotsTxt);
     res.end();
   }

@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "ngwebsite20208ff3a7b7": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}

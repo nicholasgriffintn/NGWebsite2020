@@ -41,6 +41,7 @@
     "apollo-server": "2.24.1",
     "apollo-server-express": "2.24.1",
     "apollo-server-micro": "2.24.1",
+    "aws-amplify": "^4.2.2",
     "aws-sdk": "2.912.0",
     "dayjs": "1.10.4",
     "dotenv": "10.0.0",

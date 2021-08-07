@@ -105,3 +105,4 @@ dist
 
 aws-config.json
 temp/
+aws-exports.js
